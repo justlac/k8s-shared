@@ -3,8 +3,6 @@ kind: HTTPProxy
 metadata:
   name: authentik
   namespace: authentik
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   virtualhost:
     fqdn: auth.etsmtl.club
@@ -30,14 +28,12 @@ kind: HTTPProxy
 metadata:
   name: authentik-internal
   namespace: authentik
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: contour-internal
   virtualhost:
     fqdn: auth.etsmtl.club
     tls:
-      secretName: authentik-internal-tls
+      secretName: authentik-tls
       minimumProtocolVersion: "1.3"
   routes:
   - conditions:
