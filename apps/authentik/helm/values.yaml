@@ -43,7 +43,8 @@ postgresql:
   auth:
     existingSecret: authentik-secrets
     secretKeys:
-      password: AUTHENTIK_POSTGRES_PASSWORD
+        adminPasswordKey: AUTHENTIK_POSTGRES_PASSWORD
+        userPasswordKey: AUTHENTIK_POSTGRES_PASSWORD
   persistence:
     enabled: true
     storageClass: cephfs
