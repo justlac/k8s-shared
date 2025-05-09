@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: authentik-tls
   issuerRef:
-    name: letsencrypt-etsmtl
+    name: letsencrypt-http
     kind: ClusterIssuer
   commonName: auth.etsmtl.club
   dnsNames:
@@ -20,7 +20,7 @@ metadata:
 spec:
   secretName: authentik-internal-tls
   issuerRef:
-    name: letsencrypt-etsmtl
+    name: letsencrypt-http-internal
     kind: ClusterIssuer
   commonName: auth.etsmtl.club
   dnsNames:
