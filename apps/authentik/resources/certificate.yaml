@@ -8,9 +8,9 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: authentik.shared.cedille.club
+  commonName: auth.etsmtl.club
   dnsNames:
-    - authentik.shared.cedille.club
+    - auth.etsmtl.club
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -22,6 +22,6 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: authentik.shared.cedille.club
+  commonName: auth.etsmtl.club
   dnsNames:
-    - authentik.shared.cedille.club
+    - auth.etsmtl.club

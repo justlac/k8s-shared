@@ -7,7 +7,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   virtualhost:
-    fqdn: authentik.shared.cedille.club
+    fqdn: auth.etsmtl.club
     tls:
       secretName: authentik-tls
       minimumProtocolVersion: "1.3"
@@ -35,7 +35,7 @@ metadata:
 spec:
   ingressClassName: contour-internal
   virtualhost:
-    fqdn: authentik.shared.cedille.club
+    fqdn: auth.etsmtl.club
     tls:
       secretName: authentik-internal-tls
       minimumProtocolVersion: "1.3"
