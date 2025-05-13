@@ -1,7 +1,7 @@
 namespace: nextcloud
 
 resources:
-  - secrets.yaml
+  # - secrets.yaml
   - postgresql.yaml
   - httpproxy.yaml
   - certificate.yaml
@@ -12,4 +12,10 @@ helmCharts:
     version: 6.6.10
     releaseName: nextcloud
     namespace: nextcloud
-    valuesFile: values.yaml
+    valuesFile: nextcloud-values.yaml
+  - name: collabora-online
+    repo: https://collaboraonline.github.io/online
+    version: 1.1.38
+    releaseName: collabora
+    namespace: nextcloud
+    valuesFile: collabora-values.yaml

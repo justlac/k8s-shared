@@ -72,7 +72,7 @@ spec:
       - name: Upgrade
         value: websocket
     services:
-    - name: nextcloud-collabora
+    - name: collabora-collabora-online
       port: 9980
   virtualhost:
     fqdn: collabora-nextcloud.etsmtl.club
@@ -100,7 +100,7 @@ spec:
       - name: Upgrade
         value: websocket
     services:
-    - name: nextcloud-collabora
+    - name: collabora-collabora-online
       port: 9980
   virtualhost:
     fqdn: collabora-nextcloud.etsmtl.club

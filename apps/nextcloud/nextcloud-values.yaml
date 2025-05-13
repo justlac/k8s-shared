@@ -258,44 +258,6 @@ redis:
     persistence:
       enabled: true
 
-##
-## Collabora chart configuration
-## for more options see https://github.com/CollaboraOnline/online/tree/master/kubernetes/helm/collabora-online
-##
-collabora:
-  enabled: true
-
-  autoscaling:
-    # enable autocaling, please check collabora README.md first
-    enabled: false
-
-  collabora:
-    ## HTTPS nextcloud domain, if needed
-    aliasgroups:
-       - host: "https://nextcloud.etsmtl.club:443"
-
-    # set extra parameters for collabora
-    # you may need to add --o:ssl.termination=true
-    extra_params: --o:ssl.enable=false --o:ssl.termination=true --o:num_prespawn_children=4 --o:remote_font_config.url=https://nextcloud.etsmtl.club/apps/richdocuments/settings/fonts.json
-
-    ## Specify server_name when the hostname is not reachable directly for
-    # example behind reverse-proxy. example: collabora.domain
-    server_name: collabora-nextcloud.etsmtl.club
-
-    existingSecret:
-      # set to true to to get collabora admin credentials from an existin secret
-      # if set, ignores collabora.collabora.username and password
-      enabled: true
-      # name of existing Kubernetes Secret with collboara admin credentials
-      secretName: "collabora-admin"
-      usernameKey: "username"
-      passwordKey: "password"
-
-  # setup ingress
-  ingress:
-    # enable ingress for collabora online
-    enabled: false
-
 
 ## Cronjob to execute Nextcloud background tasks
 ## ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron
