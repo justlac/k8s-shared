@@ -7,6 +7,8 @@ spec:
   routes:
   - conditions:
     - prefix: /
+    timeoutPolicy:
+      response: 1m
     enableWebsockets: true
     requestHeadersPolicy:
       set:
@@ -35,6 +37,8 @@ spec:
   routes:
   - conditions:
     - prefix: /
+    timeoutPolicy:
+      response: 1m
     enableWebsockets: true
     requestHeadersPolicy:
       set:
