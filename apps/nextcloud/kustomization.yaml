@@ -1,0 +1,15 @@
+namespace: nextcloud
+
+resources:
+  - secrets.yaml
+  - postgresql.yaml
+  - httpproxy.yaml
+  - certificate.yaml
+
+helmCharts:
+  - name: nextcloud
+    repo: https://nextcloud.github.io/helm
+    version: 6.6.10
+    releaseName: nextcloud
+    namespace: nextcloud
+    valuesFile: values.yaml
