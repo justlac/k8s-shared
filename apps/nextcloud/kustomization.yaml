@@ -6,6 +6,7 @@ resources:
   - httpproxy.yaml
   - certificate.yaml
   - pvc.yaml
+  - cronjob.yaml
 
 helmCharts:
   - name: nextcloud
