@@ -5,6 +5,7 @@ resources:
   - postgresql.yaml
   - httpproxy.yaml
   - certificate.yaml
+  - pvc.yaml
 
 helmCharts:
   - name: nextcloud
