@@ -15,14 +15,12 @@ spec:
   - conditions:
     - prefix: /
     enableWebsockets: true
-    # requestHeadersPolicy:
-    #   set:
-    #     - name: X-Forwarded-For
-    #       value: "%REQ(X-Forwarded-For)%"
-    #     - name: X-Forwarded-Proto
-    #       value: "%REQ(:scheme)%"
-    #     # - name: Host
-    #     #   value: "%REQ(:AUTHORITY)%"
+    responseHeadersPolicy:
+      set:
+        - name: X-Frame-Options
+          value: ALLOW
+        - name: Content-Security-Policy
+          value: frame-ancestors 'self' https://nextcloud.etsmtl.club
     services:
     - name: planka
       port: 1337
