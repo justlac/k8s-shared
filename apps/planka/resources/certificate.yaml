@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: planka-tls
+  namespace: planka
+spec:
+  secretName: planka-tls
+  issuerRef:
+    name: letsencrypt-http
+    kind: ClusterIssuer
+  commonName: planka.etsmtl.club
+  dnsNames:
+    - planka.etsmtl.club
