@@ -7,7 +7,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   virtualhost:
-    fqdn: planka.prod.cedille.club
+    fqdn: planka.etsmtl.club
     tls:
       secretName: planka-tls
       minimumProtocolVersion: "1.3"
