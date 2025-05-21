@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: planka
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  destination:
+    server: https://cedille.kubernetes.omni.siderolabs.io?cluster=k8s-shared
+    namespace: planka
+  project: k8s-shared
+  sources:
+    - chart: planka
+      helm:
+        releaseName: planka
+        valueFiles:
+          - $values/apps/planka/helm/values.yaml
+      repoURL: http://plankanban.github.io/planka
+      targetRevision: 1.0.1
+    - repoURL: "https://github.com/ClubCedille/k8s-shared.git"
+      targetRevision: master
+      ref: values
+    - repoURL: 'https://github.com/ClubCedille/k8s-shared.git'
+      path: apps/planka/resources
+      targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
