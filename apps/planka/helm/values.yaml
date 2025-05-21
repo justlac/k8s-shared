@@ -32,7 +32,7 @@ existingAdminCredsSecret: "planka-admin-secret"
 
 # Base url for PLANKA. Will override `ingress.hosts[0].host`
 # Defaults to `http://localhost:3000` if ingress is disabled.
-baseUrl: "https://planka.prod.cedille.club"
+baseUrl: "https://planka.etsmtl.club"
 
 serviceAccount:
   # Specifies whether a service account should be created
