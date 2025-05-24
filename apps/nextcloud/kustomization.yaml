@@ -8,6 +8,23 @@ resources:
   - pvc.yaml
   - cronjob.yaml
 
+patches:
+  - target:
+      kind: Deployment
+      name: nextcloud
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: nextcloud
+      spec:
+        template:
+          metadata:
+            labels:
+              app.kubernetes.io/backup: velero
+            annotations:
+              backup.velero.io/backup-volumes: nextcloud-main
+
 helmCharts:
   - name: nextcloud
     repo: https://nextcloud.github.io/helm
