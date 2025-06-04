@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: docmost
+spec:
+  serviceName: "docmost"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docmost
+  template:
+    metadata:
+      labels:
+        app: docmost
+    spec:
+      containers:
+        - env:
+            - name: APP_URL
+              value: https://docmost.etsmtl.club
+            - name: REDIS_URL
+              value: redis://redis.docmost.svc.cluster.local:6379
+          image: docmost/docmost:latest
+          name: docmost
+          envFrom:
+            - secretRef:
+                name: docmost-secrets
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /app/data/storage
+              name: docmost-pv-claim
+      restartPolicy: Always
+  volumeClaimTemplates:
+    - metadata:
+        name: docmost-pv-claim
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 15Gi
+        storageClassName: cephfs
