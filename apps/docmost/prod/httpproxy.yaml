@@ -4,7 +4,7 @@ metadata:
   name: docmost-shared
 spec:
   virtualhost:
-    fqdn: wiki.shared.cedille.club
+    fqdn: docmost.shared.cedille.club
     tls:
       secretName: docmost-tls
       minimumProtocolVersion: "1.3"
@@ -21,7 +21,7 @@ metadata:
   name: docmost
 spec:
   virtualhost:
-    fqdn: wiki.etsmtl.club
+    fqdn: docmost.etsmtl.club
     tls:
       secretName: docmost-tls
       minimumProtocolVersion: "1.3"
