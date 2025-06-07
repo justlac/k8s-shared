@@ -63,9 +63,9 @@ nextcloud:
     logging.config.php: |-
       <?php
       $CONFIG = array (
-        'log_type' => 'file',
-        'logfile' => '/var/log/nextcloud.log',
-        'loglevel' => 3,
+        'log_type' => 'errorlog',
+        'logfile' => '/dev/stdout',
+        'loglevel' => 0,
         'logdateformat' => 'F d, Y H:i:s'
         );
   ## PHP Configuration files
@@ -150,37 +150,10 @@ nextcloud:
   # ref: https://github.com/nextcloud/docker?tab=readme-ov-file#auto-configuration-via-hook-folders
   hooks:
     pre-installation:
-    post-installation: |
-      #!/bin/bash
-      # assuming that your are in the root nextcloud folder and running this as the `www-data` user
-      php /var/www/html/occ db:add-missing-indices
-      php /var/www/html/occ app:install user_oidc
-      php /var/www/html/occ app:install richdocuments
-      php /var/www/html/occ app:install groupfolders
+    post-installation:
     pre-upgrade:
     post-upgrade:
-    before-starting: |
-      #!/bin/bash
-      # Authentik config
-      php /var/www/html/occ user_oidc:provider "Authentik" \
-          --clientid="$AUTHENTIK_CLIENT_ID" \
-          --clientsecret="$AUTHENTIK_CLIENT_SECRET" \
-          --discoveryuri="$AUTHENTIK_CONFIG_URL" \
-          --group-provisioning=1 \
-          --bearer-provisioning=1 \
-          --unique-uid=0 \
-          --group-whitelist-regex="^(admin|club-.+|exec-.+)$" \
-          --group-restrict-login-to-whitelist=1 \
-          --send-id-token-hint=1 \
-          --check-bearer=1
-      php /var/www/html/occ config:app:set user_oidc allow_multiple_user_backends --value=0
-      # Collabora config
-      php /var/www/html/occ config:app:set richdocuments wopi_url --value ${COLLABORA_SERVER_URL} 
-      php /var/www/html/occ config:app:set richdocuments wopi_allowlist --value 10.244.0.0/16
-      php /var/www/html/occ config:app:set richdocuments doc_format --value ooxml
-      php /var/www/html/occ richdocuments:activate-config
-      # Set maintenance window from 1 am to 5 am
-      php /var/www/html/occ config:system:set maintenance_window_start --value="1" --type=integer
+    before-starting:
 
   ## Strategy used to replace old pods
   ## IMPORTANT: use with care, it is suggested to leave as that for upgrade purposes
@@ -207,8 +180,6 @@ nextcloud:
         key: client_secret
   - name: AUTHENTIK_CONFIG_URL
     value: https://auth.etsmtl.club/application/o/nextcloud-oidc/.well-known/openid-configuration
-  - name: COLLABORA_SERVER_URL
-    value: https://collabora-nextcloud.etsmtl.club
 
 internalDatabase:
   enabled: false
@@ -258,26 +229,7 @@ redis:
 ## ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron
 ##
 cronjob:
-  enabled: false
-
-  ## Cronjob sidecar resource requests and limits
-  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-  ##
-  resources: {}
-
-  # Allow configuration of lifecycle hooks
-  # ref: https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
-  lifecycle: {}
-    # postStartCommand: []
-    # preStopCommand: []
-  # Set securityContext parameters. For example, you may need to define runAsNonRoot directive
-  securityContext: {}
-  #   runAsUser: 33
-  #   runAsGroup: 33
-  #   runAsNonRoot: true
-  #   readOnlyRootFilesystem: true
-
-  # The command the cronjob container executes.
+  enabled: true
   command:
   - /cron.sh
 

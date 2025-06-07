@@ -21,3 +21,10 @@ helmCharts:
     releaseName: collabora
     namespace: nextcloud
     valuesFile: collabora-values.yaml
+
+configMapGenerator:
+  - name: nextcloud-setup-job
+    files:
+      - job-files/external-sites.yaml
+      - job-files/clubs.yaml
+      - job-files/nextcloud-setup.bash
