@@ -1,3 +1,4 @@
+---
 # Maintenance window for automated backups
 apiVersion: batch/v1
 kind: CronJob
@@ -5,7 +6,7 @@ metadata:
   name: enable-maintenance
   namespace: nextcloud
 spec:
-  schedule: "30 6 * * *" # UTC time. 2h30 am EST
+  schedule: 30 6 * * *  # UTC time. 2h30 am EST
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -30,7 +31,7 @@ metadata:
   name: disable-maintenance
   namespace: nextcloud
 spec:
-  schedule: "20 7 * * *" # UTC time. 3h20 am EST
+  schedule: 20 7 * * *  # UTC time. 3h20 am EST
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -61,9 +62,9 @@ metadata:
   name: backup-access
   namespace: nextcloud
 rules:
-  - apiGroups: [""]
-    resources: ["pods", "pods/exec"]
-    verbs: ["get", "list", "create", "delete"]
+  - apiGroups: ['']
+    resources: [pods, pods/exec]
+    verbs: [get, list, create, delete]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding

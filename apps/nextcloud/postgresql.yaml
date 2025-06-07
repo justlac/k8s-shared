@@ -1,3 +1,4 @@
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -13,8 +14,8 @@ spec:
         name: nextcloud-postgresql
   backup:
     barmanObjectStore:
-      destinationPath: "s3://k8s-shared-bucket/postgresql-nextcloud"
-      endpointURL: "https://s3.ca-east-006.backblazeb2.com"
+      destinationPath: s3://k8s-shared-bucket/postgresql-nextcloud
+      endpointURL: https://s3.ca-east-006.backblazeb2.com
       s3Credentials:
         accessKeyId:
           name: b2-creds
@@ -22,7 +23,7 @@ spec:
         secretAccessKey:
           name: b2-creds
           key: ACCESS_SECRET_KEY
-    retentionPolicy: "30d"
+    retentionPolicy: 30d
   storage:
     size: 50Gi
     storageClass: cephfs
@@ -33,7 +34,7 @@ metadata:
   name: cnpg-backup-schedule
   namespace: nextcloud
 spec:
-  schedule: "0 35 6 * * *"
+  schedule: 0 35 6 * * *
   backupOwnerReference: self
   cluster:
     name: postgresql-nextcloud

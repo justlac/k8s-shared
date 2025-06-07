@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -9,29 +10,29 @@ spec:
     spec:
       serviceAccountName: backup-runner
       containers:
-      - name: nextcloud-setup
-        image: bitnami/kubectl:latest
-        command:
-          - /bin/sh
-          - -c
-          - |
-            pod=$(kubectl get pods -n nextcloud -l app.kubernetes.io/name=nextcloud -o=custom-columns=NAME:.metadata.name --no-headers | tail -n 1)
-            ls -la /
-            kubectl cp external-sites.yaml nextcloud/$pod:/
-            kubectl cp clubs.yaml nextcloud/$pod:/
-            kubectl cp nextcloud-setup.bash nextcloud/$pod:/
-            kubectl exec -n nextcloud $pod -- ls -la /
-            kubectl exec -n nextcloud $pod -- bash /nextcloud-setup.bash
-        volumeMounts:
-          - name: job-files
-            mountPath: /nextcloud-setup.bash
-            subPath: nextcloud-setup.bash
-          - name: job-files
-            mountPath: /external-sites.yaml
-            subPath: external-sites.yaml
-          - name: job-files
-            mountPath: /clubs.yaml
-            subPath: clubs.yaml
+        - name: nextcloud-setup
+          image: bitnami/kubectl:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              pod=$(kubectl get pods -n nextcloud -l app.kubernetes.io/name=nextcloud -o=custom-columns=NAME:.metadata.name --no-headers | tail -n 1)
+              ls -la /
+              kubectl cp external-sites.yaml nextcloud/$pod:/
+              kubectl cp clubs.yaml nextcloud/$pod:/
+              kubectl cp nextcloud-setup.bash nextcloud/$pod:/
+              kubectl exec -n nextcloud $pod -- ls -la /
+              kubectl exec -n nextcloud $pod -- bash /nextcloud-setup.bash
+          volumeMounts:
+            - name: job-files
+              mountPath: /nextcloud-setup.bash
+              subPath: nextcloud-setup.bash
+            - name: job-files
+              mountPath: /external-sites.yaml
+              subPath: external-sites.yaml
+            - name: job-files
+              mountPath: /clubs.yaml
+              subPath: clubs.yaml
       restartPolicy: Never
       volumes:
         - name: job-files
