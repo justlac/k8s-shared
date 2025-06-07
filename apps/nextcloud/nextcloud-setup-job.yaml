@@ -1,8 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: nextcloud-setup
-  namespace: nextcloud
+  generateName: nextcloud-setup-
+  annotations:
+    argocd.argoproj.io/hook: PostSync
 spec:
   template:
     spec:
@@ -35,5 +36,5 @@ spec:
       volumes:
         - name: job-files
           configMap:
-            name: nextcloud-setup-job-h22fg552b7
+            name: nextcloud-setup-job
   backoffLimit: 4
