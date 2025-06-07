@@ -30,7 +30,7 @@ metadata:
   name: disable-maintenance
   namespace: nextcloud
 spec:
-  schedule: "0 7 * * *" # UTC time. 3h00 am EST
+  schedule: "20 7 * * *" # UTC time. 3h20 am EST
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
