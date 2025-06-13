@@ -1,3 +1,4 @@
+---
 ## Official nextcloud image version
 ## ref: https://hub.docker.com/r/library/nextcloud/tags/
 ##
@@ -8,10 +9,8 @@ image:
   pullPolicy: IfNotPresent
   # pullSecrets:
   #   - myRegistrKeySecretName
-
 # Number of replicas to be deployed
-replicaCount: 3 # TODO: set to 3 once redis is enabled
-
+replicaCount: 3  # TODO: set to 3 once redis is enabled
 ## Allowing use of ingress controllers
 ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
@@ -19,20 +18,17 @@ ingress:
   enabled: false
   # className: nginx
   annotations:
-    kubernetes.io/tls-acme: "true"
+    kubernetes.io/tls-acme: 'true'
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - secretName: nextcloud-tls
-      hosts:
-        - nextcloud.bk.shared.cedille.club
+      hosts: [nextcloud.bk.shared.cedille.club]
   labels: {}
   path: /
   pathType: Prefix
-
 phpClientHttpsFix:
   enabled: true
   protocol: https
-
 nextcloud:
   host: nextcloud.bk.shared.cedille.club
   ## Use an existing secret
@@ -41,10 +37,10 @@ nextcloud:
     secretName: nextcloud-admin
     usernameKey: nextcloud-username
     passwordKey: nextcloud-password
-    tokenKey: ""
-    smtpUsernameKey: ""
-    smtpPasswordKey: ""
-    smtpHostKey: ""
+    tokenKey: ''
+    smtpUsernameKey: ''
+    smtpPasswordKey: ''
+    smtpHostKey: ''
   update: 0
   # If web server is not binding default port, you can define it
   containerPort: 80
@@ -52,10 +48,7 @@ nextcloud:
   persistence:
     subPath:
   # if set, we'll template this list to the NEXTCLOUD_TRUSTED_DOMAINS env var
-  trustedDomains:
-    - nextcloud.bk.shared.cedille.club
-
-
+  trustedDomains: [nextcloud.bk.shared.cedille.club]
   configs:
     network.config.php: |-
       <?php
@@ -82,7 +75,7 @@ nextcloud:
       apc.ttl=7200
       apc.user_ttl=7200
       apc.num_files_hint=1024
-      #apc.mmap_file_mask=/tmp/apc.XXXXXX
+      # apc.mmap_file_mask=/tmp/apc.XXXXXX
       apc.enable_cli=1
     opcache.ini: |-
       opcache.enable=1
@@ -129,23 +122,23 @@ nextcloud:
   # configs: {}
   # For example, to enable image and text file previews:
   previews.config.php: |-
-     <?php
-     $CONFIG = array (
-       'enable_previews' => true,
-       'enabledPreviewProviders' => array (
-         'OC\Preview\Movie',
-         'OC\Preview\PNG',
-         'OC\Preview\JPEG',
-         'OC\Preview\GIF',
-         'OC\Preview\BMP',
-         'OC\Preview\XBitmap',
-         'OC\Preview\MP3',
-         'OC\Preview\MP4',
-         'OC\Preview\TXT',
-         'OC\Preview\MarkDown',
-         'OC\Preview\PDF'
-       ),
-     );
+    <?php
+    $CONFIG = array (
+      'enable_previews' => true,
+      'enabledPreviewProviders' => array (
+        'OC\Preview\Movie',
+        'OC\Preview\PNG',
+        'OC\Preview\JPEG',
+        'OC\Preview\GIF',
+        'OC\Preview\BMP',
+        'OC\Preview\XBitmap',
+        'OC\Preview\MP3',
+        'OC\Preview\MP4',
+        'OC\Preview\TXT',
+        'OC\Preview\MarkDown',
+        'OC\Preview\PDF'
+      ),
+    );
 
   # Hooks for auto configuration
   # Here you could write small scripts which are placed in `/docker-entrypoint-hooks.d/<hook-name>/helm.sh`
@@ -197,24 +190,22 @@ nextcloud:
   ##
   ## Extra environment variables
   extraEnv:
-  - name: AUTHENTIK_CLIENT_ID
-    valueFrom:
-      secretKeyRef:
-        name: authentik-oidc
-        key: client_id
-  - name: AUTHENTIK_CLIENT_SECRET
-    valueFrom:
-      secretKeyRef:
-        name: authentik-oidc
-        key: client_secret
-  - name: AUTHENTIK_CONFIG_URL
-    value: https://auth.etsmtl.club/application/o/nextcloud-oidc/.well-known/openid-configuration
-  - name: COLLABORA_SERVER_URL
-    value: https://collabora-nextcloud.bk.shared.cedille.club
-
+    - name: AUTHENTIK_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: authentik-oidc
+          key: client_id
+    - name: AUTHENTIK_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: authentik-oidc
+          key: client_secret
+    - name: AUTHENTIK_CONFIG_URL
+      value: https://auth.etsmtl.club/application/o/nextcloud-oidc/.well-known/openid-configuration
+    - name: COLLABORA_SERVER_URL
+      value: https://collabora-nextcloud.bk.shared.cedille.club
 internalDatabase:
   enabled: false
-
 ##
 ## External database configuration
 ##
@@ -225,7 +216,7 @@ externalDatabase:
   type: postgresql
 
   ## Database host. You can optionally include a colon delimited port like "myhost:1234"
-  host: "postgresql-nextcloud-backup-rw.nextcloud.svc.cluster.local"
+  host: postgresql-nextcloud-backup-rw.nextcloud.svc.cluster.local
 
   ## Database name
   database: nextcloud
@@ -233,29 +224,25 @@ externalDatabase:
   ## Use a existing secret
   existingSecret:
     enabled: true
-    secretName: "nextcloud-postgresql"
-    usernameKey: "username"
-    passwordKey: "password"
-
+    secretName: nextcloud-postgresql
+    usernameKey: username
+    passwordKey: password
 ##
 ## Redis chart configuration
 ## for more options see https://github.com/bitnami/charts/tree/main/bitnami/redis
 ##
-
 redis:
   enabled: true
   auth:
     enabled: true
-    existingSecret: "redis-secret"
-    existingSecretPasswordKey: "secret"
+    existingSecret: redis-secret
+    existingSecretPasswordKey: secret
   master:
     persistence:
       enabled: false
   replica:
     persistence:
       enabled: false
-
-
 ## Cronjob to execute Nextcloud background tasks
 ## ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron
 ##
@@ -280,17 +267,14 @@ cronjob:
   #   readOnlyRootFilesystem: true
 
   # The command the cronjob container executes.
-  command:
-  - /cron.sh
-
+  command: [/cron.sh]
 service:
   type: ClusterIP
   port: 8080
-  loadBalancerIP: ""
+  loadBalancerIP: ''
   nodePort:
   # -- use additional annotation on service for nextcloud
   annotations: {}
-
 ## Enable persistence using Persistent Volume Claims
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
 ##
@@ -305,13 +289,12 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass: ""
+  storageClass: ''
 
   ## A manually managed Persistent Volume and Claim
   ## Requires persistence.enabled: true
   ## If defined, PVC must be created manually before volume will be bound
   existingClaim: nextcloud-pvc
-
   accessMode: ReadWriteOnce
   size: 8Gi
 
@@ -325,7 +308,6 @@ persistence:
     # existingClaim:
     accessMode: ReadWriteOnce
     size: 8Gi
-
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -337,7 +319,6 @@ resources: {}
   # requests:
   #  cpu: 100m
   #  memory: 128Mi
-
 ## Liveness and readiness probe values
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 ##
@@ -362,8 +343,6 @@ startupProbe:
   timeoutSeconds: 5
   failureThreshold: 30
   successThreshold: 1
-
-
 ## Enable pod autoscaling using HorizontalPodAutoscaler
 ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
 ##
@@ -372,26 +351,20 @@ hpa:
   cputhreshold: 60
   minPods: 1
   maxPods: 10
-
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
-
 dnsConfig: {}
 # Custom dns config for Nextcloud containers.
 # You can for example configure ndots. This may be needed in some clusters with alpine images.
 # options:
 #   - name: ndots
 #     value: "1"
-
 imaginary:
   # -- Start Imgaginary
   enabled: false
   # -- Number of imaginary pod replicas to deploy
   replicaCount: 1
-
   image:
     # -- Imaginary image registry
     registry: docker.io
@@ -430,7 +403,6 @@ imaginary:
   # runAsNonRoot: true
   # seccompProfile:
   #   type: RuntimeDefault
-
   readinessProbe:
     enabled: true
     failureThreshold: 3
@@ -443,7 +415,6 @@ imaginary:
     successThreshold: 1
     periodSeconds: 10
     timeoutSeconds: 1
-
   service:
     # -- Imaginary: Kubernetes Service type
     type: ClusterIP
@@ -455,22 +426,20 @@ imaginary:
     annotations: {}
     # -- Additional labels for service imaginary
     labels: {}
-
 ## Prometheus Exporter / Metrics
 ##
 metrics:
   enabled: false
-
   replicaCount: 1
   # Optional: becomes NEXTCLOUD_SERVER env var in the nextcloud-exporter container.
   # Without it, we will use the full name of the nextcloud service
-  server: ""
+  server: ''
   # The metrics exporter needs to know how you serve Nextcloud either http or https
   https: false
   # Use API token if set, otherwise fall back to password authentication
   # https://github.com/xperimental/nextcloud-exporter#token-authentication
   # Currently you still need to set the token manually in your nextcloud install
-  token: ""
+  token: ''
   timeout: 5s
   # if set to true, exporter skips certificate verification of Nextcloud server.
   tlsSkipVerify: false
@@ -478,7 +447,6 @@ metrics:
     # Optional: becomes NEXTCLOUD_INFO_APPS env var in the nextcloud-exporter container.
     # Enables gathering of apps-related metrics. Defaults to false
     apps: false
-
   image:
     repository: xperimental/nextcloud-exporter
     tag: 0.6.2
@@ -505,15 +473,14 @@ metrics:
 
   # -- Metrics exporter pod affinity
   affinity: {}
-
   service:
     type: ClusterIP
     # Use serviceLoadBalancerIP to request a specific static IP,
     # otherwise leave blank
     loadBalancerIP:
     annotations:
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "9205"
+      prometheus.io/scrape: 'true'
+      prometheus.io/port: '9205'
     labels: {}
 
   # -- security context for the metrics CONTAINER in the pod
@@ -540,14 +507,14 @@ metrics:
 
     ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
     ##
-    namespace: ""
+    namespace: ''
 
     ## @param metrics.serviceMonitor.namespaceSelector The selector of the namespace where the target service is located (defaults to the release namespace)
     namespaceSelector:
 
     ## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in prometheus.
     ##
-    jobLabel: ""
+    jobLabel: ''
 
     ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
     ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
@@ -557,20 +524,16 @@ metrics:
     ## @param metrics.serviceMonitor.scrapeTimeout Specify the timeout after which the scrape is ended
     ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
     ##
-    scrapeTimeout: ""
+    scrapeTimeout: ''
 
     ## @param metrics.serviceMonitor.labels Extra labels for the ServiceMonitor
     ##
     labels: {}
-
-
 rbac:
   enabled: false
   serviceaccount:
     create: true
     name: nextcloud-serviceaccount
     annotations: {}
-
-
 ## @param securityContext for nextcloud pod @deprecated Use `nextcloud.podSecurityContext` instead
 securityContext: {}
