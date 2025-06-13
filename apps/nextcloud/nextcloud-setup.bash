@@ -77,6 +77,7 @@ for name in $yaml_names; do
     php /var/www/html/occ group:add exec-$name
   fi
   target_quota=$(yq ".[] | select(.name == \"$name\") | .quota" "$YAML_FILE")
+  target_quota=$((target_quota * 1024 * 1024 * 1024))
   if ! grep -qx "$name" <<< "$json_mounts"; then
     echo "Creating groupfolder for $name"
     folder_id=$(php /var/www/html/occ groupfolders:create "${name}")

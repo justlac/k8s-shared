@@ -1,4 +1,4 @@
 ---
 - name: cedille
   external_sites: [planka, planka2]
-  quota: 107374182400
+  quota: 100
