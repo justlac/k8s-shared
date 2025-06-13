@@ -1,17 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: shared-nextcloud
+  name: k8s-shared-nextcloud
   namespace: argocd
 spec:
   destination:
     namespace: nextcloud
     server: https://cedille.kubernetes.omni.siderolabs.io?cluster=k8s-shared
   project: k8s-shared
-  source:
-    path: apps/nextcloud
-    repoURL: https://github.com/ClubCedille/k8s-shared.git
-    targetRevision: HEAD
+  sources:
+    - path: apps/nextcloud
+      repoURL: https://github.com/ClubCedille/k8s-shared.git
+      targetRevision: HEAD
+    - path: apps/nextcloud
+      repoURL: https://github.com/ClubCedille/k8s-shared.git
+      targetRevision: HEAD
+      directory:
+        include: nextcloud-setup-job.yaml
   syncPolicy:
     automated:
       prune: true

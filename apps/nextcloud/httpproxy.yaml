@@ -14,9 +14,9 @@ spec:
       requestHeadersPolicy:
         set:
           - name: X-Forwarded-For
-            value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
+            value: "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%"
           - name: X-Forwarded-Proto
-            value: '%PROTOCOL%'
+            value: "%PROTOCOL%"
           - name: Upgrade
             value: websocket
       services:
@@ -25,7 +25,7 @@ spec:
   virtualhost:
     fqdn: nextcloud.etsmtl.club
     tls:
-      minimumProtocolVersion: '1.3'
+      minimumProtocolVersion: "1.3"
       secretName: nextcloud-ingress-tls
 ---
 apiVersion: projectcontour.io/v1
@@ -44,9 +44,9 @@ spec:
       requestHeadersPolicy:
         set:
           - name: X-Forwarded-For
-            value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
+            value: "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%"
           - name: X-Forwarded-Proto
-            value: '%PROTOCOL%'
+            value: "%PROTOCOL%"
           - name: Upgrade
             value: websocket
       services:
@@ -55,7 +55,7 @@ spec:
   virtualhost:
     fqdn: nextcloud.etsmtl.club
     tls:
-      minimumProtocolVersion: '1.3'
+      minimumProtocolVersion: "1.3"
       secretName: nextcloud-ingress-tls
 ---
 apiVersion: projectcontour.io/v1
@@ -71,9 +71,9 @@ spec:
       requestHeadersPolicy:
         set:
           - name: X-Forwarded-For
-            value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
+            value: "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%"
           - name: X-Forwarded-Proto
-            value: '%PROTOCOL%'
+            value: "%PROTOCOL%"
           - name: Upgrade
             value: websocket
       services:
@@ -82,7 +82,7 @@ spec:
   virtualhost:
     fqdn: collabora-nextcloud.etsmtl.club
     tls:
-      minimumProtocolVersion: '1.3'
+      minimumProtocolVersion: "1.3"
       secretName: collabora-ingress-tls
 ---
 apiVersion: projectcontour.io/v1
@@ -99,9 +99,9 @@ spec:
       requestHeadersPolicy:
         set:
           - name: X-Forwarded-For
-            value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
+            value: "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%"
           - name: X-Forwarded-Proto
-            value: '%PROTOCOL%'
+            value: "%PROTOCOL%"
           - name: Upgrade
             value: websocket
       services:
@@ -110,5 +110,5 @@ spec:
   virtualhost:
     fqdn: collabora-nextcloud.etsmtl.club
     tls:
-      minimumProtocolVersion: '1.3'
+      minimumProtocolVersion: "1.3"
       secretName: collabora-ingress-tls

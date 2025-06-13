@@ -1,13 +1,11 @@
 ---
 namespace: nextcloud
 resources:
-  # - secrets.yaml
   - postgresql.yaml
   - httpproxy.yaml
   - certificate.yaml
   - pvc.yaml
   - cronjob.yaml
-  # - nextcloud-setup-job.yaml
 patches:
   - target:
       kind: Deployment
@@ -43,6 +41,5 @@ configMapGenerator:
       - ../../data/nextcloud-external-sites.yaml
       - ../../data/clubs.yaml
       - nextcloud-setup.bash
-
 generatorOptions:
   disableNameSuffixHash: true

@@ -6,7 +6,7 @@ metadata:
   name: enable-maintenance
   namespace: nextcloud
 spec:
-  schedule: 30 6 * * *  # UTC time. 2h30 am EST
+  schedule: 30 6 * * * # UTC time. 2h30 am EST
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -31,7 +31,7 @@ metadata:
   name: disable-maintenance
   namespace: nextcloud
 spec:
-  schedule: 20 7 * * *  # UTC time. 3h20 am EST
+  schedule: 20 7 * * * # UTC time. 3h20 am EST
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -62,7 +62,7 @@ metadata:
   name: backup-access
   namespace: nextcloud
 rules:
-  - apiGroups: ['']
+  - apiGroups: [""]
     resources: [pods, pods/exec]
     verbs: [get, list, create, delete]
 ---
