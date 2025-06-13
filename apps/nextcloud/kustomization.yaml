@@ -40,6 +40,9 @@ helmCharts:
 configMapGenerator:
   - name: nextcloud-setup-job
     files:
-      - job-files/external-sites.yaml
-      - job-files/clubs.yaml
-      - job-files/nextcloud-setup.bash
+      - ../../data/nextcloud-external-sites.yaml
+      - ../../data/clubs.yaml
+      - nextcloud-setup.bash
+
+generatorOptions:
+  disableNameSuffixHash: true

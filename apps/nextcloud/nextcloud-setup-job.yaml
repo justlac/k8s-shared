@@ -37,5 +37,5 @@ spec:
       volumes:
         - name: job-files
           configMap:
-            name: nextcloud-setup-job-92625m2f58
+            name: nextcloud-setup-job
   backoffLimit: 4
