@@ -4,7 +4,7 @@ metadata:
   name: matomo
   namespace: matomo
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-http
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   virtualhost:
     fqdn: matomo.etsmtl.club
@@ -12,15 +12,13 @@ spec:
       secretName: matomo-tls
   routes:
     - conditions:
-      - header:
-          contains: application/grpc
-          name: Content-Type
-      - prefix: /websocket
+        - prefix: /
+      services:
+        - name: matomo
+          port: 80
+    - conditions:
+        - prefix: /websocket
       enableWebsockets: true
       services:
-      - name: matomo
-        port: 80
-        protocol: h2c
-    - services:
-      - name: matomo
-        port: 80
+        - name: matomo
+          port: 80
