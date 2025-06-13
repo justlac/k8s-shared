@@ -5,8 +5,8 @@ metadata:
 spec:
   secretName: docmost-tls
   issuerRef:
-    name: letsencrypt-prod
+    name: letsencrypt-http
     kind: ClusterIssuer
-  commonName: docmost.shared.cedille.club
+  commonName: docmost.etsmtl.club
   dnsNames:
-    - docmost.shared.cedille.club
+    - docmost.etsmtl.club

@@ -6,14 +6,18 @@ spec:
   virtualhost:
     fqdn: docmost.shared.cedille.club
     tls:
-      secretName: docmost-tls
+      secretName: docmost-shared-tls
       minimumProtocolVersion: "1.3"
   routes:
     - conditions:
         - prefix: /
+      enableWebsockets: true
       services:
         - name: docmost
           port: 3000
+      timeoutPolicy:
+        idle: 600s
+        response: 600s
 ---
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
@@ -28,6 +32,10 @@ spec:
   routes:
     - conditions:
         - prefix: /
+      enableWebsockets: true
       services:
         - name: docmost
           port: 3000
+      timeoutPolicy:
+        idle: 600s
+        response: 600s
