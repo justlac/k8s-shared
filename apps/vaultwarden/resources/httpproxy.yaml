@@ -2,11 +2,13 @@ apiVersion: projectcontour.io/v1
 kind: HTTPProxy
 metadata:
   name: vaultwarden-httpproxy
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   virtualhost:
-    fqdn: vaultwarden.cedille.club
+    fqdn: vaultwarden.etsmtl.club
     tls:
-      secretName: vaultwarden-shared-tls
+      secretName: vaultwarden-tls
       minimumProtocolVersion: "1.3"
   routes:
     - conditions:

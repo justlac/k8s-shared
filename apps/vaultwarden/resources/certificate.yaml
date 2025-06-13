@@ -5,7 +5,7 @@ metadata:
 spec:
   secretName: vaultwarden-tls
   issuerRef:
-    name: letsencrypt-http-stg
+    name: letsencrypt-http
     kind: ClusterIssuer
   commonName: vaultwarden.etsmtl.club
   dnsNames:
