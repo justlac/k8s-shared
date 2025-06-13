@@ -40,6 +40,9 @@ php /var/www/html/occ richdocuments:activate-config
 # Set maintenance window from 1 am to 5 am
 php /var/www/html/occ config:system:set maintenance_window_start --value="1" --type=integer
 
+# Set default storage quota to 0
+php occ config:app:set files default_quota --value="0 B"
+
 # Theming
 
 THEME_COLOR="#E40032"
