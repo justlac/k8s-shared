@@ -37,6 +37,6 @@ matomo:
     size: 8Gi
   plugins:
     - "LoginOIDC"
-  domain: "matomo.svc.cedille.club"
+  domain: "matomo.etsmtl.club"
   service:
     type: ClusterIP
