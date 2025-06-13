@@ -10,7 +10,7 @@ image:
   # pullSecrets:
   #   - myRegistrKeySecretName
 # Number of replicas to be deployed
-replicaCount: 3 # TODO: set to 3 once redis is enabled
+replicaCount: 3  # TODO: set to 3 once redis is enabled
 ## Allowing use of ingress controllers
 ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
@@ -18,7 +18,7 @@ ingress:
   enabled: false
   # className: nginx
   annotations:
-    kubernetes.io/tls-acme: "true"
+    kubernetes.io/tls-acme: 'true'
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - secretName: nextcloud-tls
@@ -37,10 +37,10 @@ nextcloud:
     secretName: nextcloud-admin
     usernameKey: nextcloud-username
     passwordKey: nextcloud-password
-    tokenKey: ""
-    smtpUsernameKey: ""
-    smtpPasswordKey: ""
-    smtpHostKey: ""
+    tokenKey: ''
+    smtpUsernameKey: ''
+    smtpPasswordKey: ''
+    smtpHostKey: ''
   update: 0
   # If web server is not binding default port, you can define it
   containerPort: 80
@@ -231,7 +231,7 @@ cronjob:
 service:
   type: ClusterIP
   port: 8080
-  loadBalancerIP: ""
+  loadBalancerIP: ''
   nodePort:
   # -- use additional annotation on service for nextcloud
   annotations: {}
@@ -249,7 +249,7 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass: ""
+  storageClass: ''
 
   ## A manually managed Persistent Volume and Claim
   ## Requires persistence.enabled: true
@@ -268,8 +268,7 @@ persistence:
     # existingClaim:
     accessMode: ReadWriteOnce
     size: 8Gi
-resources:
-  {}
+resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -394,13 +393,13 @@ metrics:
   replicaCount: 1
   # Optional: becomes NEXTCLOUD_SERVER env var in the nextcloud-exporter container.
   # Without it, we will use the full name of the nextcloud service
-  server: ""
+  server: ''
   # The metrics exporter needs to know how you serve Nextcloud either http or https
   https: false
   # Use API token if set, otherwise fall back to password authentication
   # https://github.com/xperimental/nextcloud-exporter#token-authentication
   # Currently you still need to set the token manually in your nextcloud install
-  token: ""
+  token: ''
   timeout: 5s
   # if set to true, exporter skips certificate verification of Nextcloud server.
   tlsSkipVerify: false
@@ -440,8 +439,8 @@ metrics:
     # otherwise leave blank
     loadBalancerIP:
     annotations:
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "9205"
+      prometheus.io/scrape: 'true'
+      prometheus.io/port: '9205'
     labels: {}
 
   # -- security context for the metrics CONTAINER in the pod
@@ -468,14 +467,14 @@ metrics:
 
     ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
     ##
-    namespace: ""
+    namespace: ''
 
     ## @param metrics.serviceMonitor.namespaceSelector The selector of the namespace where the target service is located (defaults to the release namespace)
     namespaceSelector:
 
     ## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in prometheus.
     ##
-    jobLabel: ""
+    jobLabel: ''
 
     ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
     ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
@@ -485,7 +484,7 @@ metrics:
     ## @param metrics.serviceMonitor.scrapeTimeout Specify the timeout after which the scrape is ended
     ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
     ##
-    scrapeTimeout: ""
+    scrapeTimeout: ''
 
     ## @param metrics.serviceMonitor.labels Extra labels for the ServiceMonitor
     ##
