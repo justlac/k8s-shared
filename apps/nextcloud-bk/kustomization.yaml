@@ -1,9 +1,9 @@
 ---
 namespace: nextcloud-bk
 resources:
-  # - secrets.yaml
-  # - postgresql.yaml needs to be applied in same namespace as main nextcloud
-[httpproxy.yaml, certificate.yaml, pvc.yaml]
+  - httpproxy.yaml
+  - certificate.yaml
+  - pvc.yaml
 helmCharts:
   - name: nextcloud
     repo: https://nextcloud.github.io/helm
