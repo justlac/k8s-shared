@@ -11,12 +11,3 @@ helmCharts:
     releaseName: "vaultwarden"
     namespace: vaultwarden
     valuesFile: "helm/values.yaml"
-patches:
-  - target:
-      kind: Service
-      name: vaultwarden
-      namespace: vaultwarden
-    patch: |-
-      - op: replace
-        path: /spec/ports/0/targetPort
-        value: 8080

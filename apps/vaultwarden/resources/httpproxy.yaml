@@ -3,7 +3,7 @@ kind: HTTPProxy
 metadata:
   name: vaultwarden-httpproxy
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-http
 spec:
   virtualhost:
     fqdn: vaultwarden.etsmtl.club
