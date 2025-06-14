@@ -3,8 +3,6 @@ kind: HTTPProxy
 metadata:
   name: planka
   namespace: planka
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   virtualhost:
     fqdn: planka.etsmtl.club

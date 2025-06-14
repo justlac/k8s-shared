@@ -3,8 +3,6 @@ kind: HTTPProxy
 metadata:
   name: matomo
   namespace: matomo
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   virtualhost:
     fqdn: matomo.etsmtl.club
