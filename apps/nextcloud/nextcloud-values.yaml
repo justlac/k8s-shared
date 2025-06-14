@@ -37,7 +37,7 @@ nextcloud:
     secretName: nextcloud-admin
     usernameKey: nextcloud-username
     passwordKey: nextcloud-password
-    tokenKey: ''
+    tokenKey: 'metrics-token'
     smtpUsernameKey: ''
     smtpPasswordKey: ''
     smtpHostKey: ''
@@ -249,7 +249,7 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass: ''
+  storageClass: 'cephfs'
 
   ## A manually managed Persistent Volume and Claim
   ## Requires persistence.enabled: true
@@ -389,7 +389,7 @@ imaginary:
 ## Prometheus Exporter / Metrics
 ##
 metrics:
-  enabled: false
+  enabled: true
   replicaCount: 1
   # Optional: becomes NEXTCLOUD_SERVER env var in the nextcloud-exporter container.
   # Without it, we will use the full name of the nextcloud service
@@ -406,7 +406,7 @@ metrics:
   info:
     # Optional: becomes NEXTCLOUD_INFO_APPS env var in the nextcloud-exporter container.
     # Enables gathering of apps-related metrics. Defaults to false
-    apps: false
+    apps: true
   image:
     repository: xperimental/nextcloud-exporter
     tag: 0.6.2

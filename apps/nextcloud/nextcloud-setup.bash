@@ -1,7 +1,7 @@
 #!/bin/bash
 
-EXTERNAL_SITES_YAML=/external-sites.yaml
-YAML_FILE=/clubs.yaml
+EXTERNAL_SITES_YAML=/tmp/nextcloud-external-sites.yaml
+YAML_FILE=/tmp/clubs.yaml
 
 apt update
 apt install -y jq yq
