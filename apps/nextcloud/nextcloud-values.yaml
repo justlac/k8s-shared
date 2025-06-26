@@ -241,7 +241,12 @@ service:
 persistence:
   # Nextcloud Data (/var/www/html)
   enabled: true
-  annotations: {}
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  existingClaim: nextcloud-pvc
+
+  # annotations: {}
   ## nextcloud data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -249,36 +254,28 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass: 'cephfs'
+  # storageClass: 'cephfs'
 
-  ## A manually managed Persistent Volume and Claim
-  ## Requires persistence.enabled: true
-  ## If defined, PVC must be created manually before volume will be bound
-  existingClaim: nextcloud-pvc
-  accessMode: ReadWriteOnce
-  size: 8Gi
+  # accessMode: ReadWriteOnce
+  # size: 8Gi
 
   ## Use an additional pvc for the data directory rather than a subpath of the default PVC
   ## Useful to store data on a different storageClass (e.g. on slower disks)
   nextcloudData:
     enabled: false
-    subPath:
-    annotations: {}
+    # subPath:
+    # annotations: {}
     # storageClass: "-"
     # existingClaim:
-    accessMode: ReadWriteOnce
-    size: 8Gi
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
+    # accessMode: ReadWriteOnce
+    # size: 8Gi
+resources:
+  requests:
+    memory: 10Gi
+    cpu: 1500m
+  limits:
+    memory: 30Gi
+    cpu: 5000m
 ## Liveness and readiness probe values
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 ##
