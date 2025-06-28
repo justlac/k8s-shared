@@ -25,7 +25,7 @@ metadata:
   name: docmost
 spec:
   virtualhost:
-    fqdn: docmost.etsmtl.club
+    fqdn: wiki.etsmtl.club
     tls:
       secretName: docmost-tls
       minimumProtocolVersion: "1.3"
