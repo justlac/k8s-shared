@@ -5,7 +5,6 @@ metadata:
   annotations:
     kube-score/ignore: pod-networkpolicy, pod-probes-identical
 spec:
-  serviceName: redis
   replicas: 1
   selector:
     matchLabels:
@@ -28,11 +27,13 @@ spec:
               mountPath: /data
           resources:
             requests:
-              cpu: "250m"
-              memory: "500Mi"
+              cpu: 250m
+              memory: 500Mi
+              ephemeral-storage: 256Mi
             limits:
-              cpu: "1000m"
-              memory: "1Gi"
+              cpu: 1000m
+              memory: 1Gi
+              ephemeral-storage: 1Gi
           livenessProbe:
             httpGet:
               path: /health
@@ -46,8 +47,8 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 10
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
+            runAsUser: 10001
+            runAsGroup: 10001
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
   volumeClaimTemplates:
