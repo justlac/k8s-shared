@@ -5,4 +5,4 @@ resources:
   - docmost-service.yaml
   - docmost-statefulset.yaml
   - redis-service.yaml
-  - redis-statefulset.yaml 
+  - redis-statefulset.yaml
