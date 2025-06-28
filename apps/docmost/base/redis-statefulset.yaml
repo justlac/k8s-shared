@@ -5,6 +5,7 @@ metadata:
   annotations:
     kube-score/ignore: pod-networkpolicy, pod-probes-identical
 spec:
+  serviceName: redis
   replicas: 1
   selector:
     matchLabels:
