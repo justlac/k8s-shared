@@ -36,15 +36,17 @@ spec:
               memory: 1Gi
               ephemeral-storage: 1Gi
           livenessProbe:
-            httpGet:
-              path: /health
-              port: 5000
+            exec:
+              command:
+                - redis-cli
+                - ping
             initialDelaySeconds: 30
             periodSeconds: 10
           readinessProbe:
-            httpGet:
-              path: /health
-              port: 5000
+            exec:
+              command:
+                - redis-cli
+                - ping
             initialDelaySeconds: 5
             periodSeconds: 10
           securityContext:
