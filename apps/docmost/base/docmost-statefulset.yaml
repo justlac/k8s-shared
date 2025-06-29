@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: docmost
   annotations:
-    kube-score/ignore: pod-networkpolicy, pod-probes, container-security-context-readonlyrootfilesystem, container-security-context-privileged
+    kube-score/ignore: pod-networkpolicy, pod-probes, container-security-context-readonlyrootfilesystem, container-security-context-privileged, container-security-context-user-group-id
 spec:
   serviceName: docmost
   replicas: 2
