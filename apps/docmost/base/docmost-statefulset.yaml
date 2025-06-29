@@ -21,7 +21,7 @@ spec:
               value: https://wiki.etsmtl.club
             - name: REDIS_URL
               value: redis://redis.docmost.svc.cluster.local:6379
-          image: docmost/docmost:v0.21.0
+          image: docmost/docmost:0.21.0
           name: docmost
           imagePullPolicy: Always
           envFrom:
