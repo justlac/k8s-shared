@@ -52,7 +52,7 @@ spec:
             runAsUser: 10001
             runAsGroup: 10001
             readOnlyRootFilesystem: false
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true
       restartPolicy: Always
   volumeClaimTemplates:
     - metadata:
