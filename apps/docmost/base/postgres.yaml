@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgresql-docmost
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.2
+  instances: 1
+  bootstrap:
+    initdb:
+      database: docmost
+      owner: docmost
+  storage:
+    size: 15Gi
+    storageClass: cephfs

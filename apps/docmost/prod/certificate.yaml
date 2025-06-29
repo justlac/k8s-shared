@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: docmost-tls
+spec:
+  secretName: docmost-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: wiki.etsmtl.club
+  dnsNames:
+    - wiki.etsmtl.club
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: docmost-shared-tls
+spec:
+  secretName: docmost-shared-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: docmost.shared.cedille.club
+  dnsNames:
+    - docmost.shared.cedille.club

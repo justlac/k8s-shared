@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: docmost
+  annotations:
+    kube-score/ignore: pod-networkpolicy, pod-probes
+spec:
+  serviceName: docmost
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docmost
+  template:
+    metadata:
+      labels:
+        app: docmost
+    spec:
+      containers:
+        - env:
+            - name: APP_URL
+              value: https://wiki.etsmtl.club
+            - name: REDIS_URL
+              value: redis://redis.docmost.svc.cluster.local:6379
+          image: docmost/docmost:v0.21.0
+          name: docmost
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: docmost-secrets
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /app/data/storage
+              name: docmost-pv-claim
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+              ephemeral-storage: 256Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+              ephemeral-storage: 1Gi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          securityContext:
+            runAsUser: 10001
+            runAsGroup: 10001
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+      restartPolicy: Always
+  volumeClaimTemplates:
+    - metadata:
+        name: docmost-pv-claim
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 15Gi
+        storageClassName: cephfs
