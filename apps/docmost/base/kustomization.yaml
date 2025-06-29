@@ -6,3 +6,4 @@ resources:
   - docmost-statefulset.yaml
   - redis-service.yaml
   - redis-statefulset.yaml
+  - docmost-pdb.yaml
