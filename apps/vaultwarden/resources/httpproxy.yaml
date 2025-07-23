@@ -10,9 +10,9 @@ spec:
       secretName: vaultwarden-tls
       minimumProtocolVersion: "1.3"
   routes:
-  - conditions:
-    - prefix: /
-    enableWebsockets: true
-    services:
-    - name: vaultwarden
-      port: 80
+    - conditions:
+      - prefix: /
+      enableWebsockets: true
+      services:
+        - name: vaultwarden
+          port: 80
