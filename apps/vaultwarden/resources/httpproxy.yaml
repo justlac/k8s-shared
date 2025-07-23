@@ -12,7 +12,7 @@ spec:
   routes:
     - conditions:
         - prefix: /
-        enableWebsockets: true
-        services:
-          - name: vaultwarden
-            port: 80
+          enableWebsockets: true
+          services:
+            - name: vaultwarden
+              port: 80
