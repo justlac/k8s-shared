@@ -11,8 +11,8 @@ spec:
       minimumProtocolVersion: "1.3"
   routes:
     - conditions:
-      - prefix: /
-      enableWebsockets: true
-      services:
-        - name: vaultwarden
-          port: 80
+        - prefix: /
+        enableWebsockets: true
+        services:
+          - name: vaultwarden
+            port: 80
