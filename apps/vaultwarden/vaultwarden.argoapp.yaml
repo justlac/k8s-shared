@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vaultwarden
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  destination:
+    server: https://cedille.kubernetes.omni.siderolabs.io?cluster=k8s-shared
+    namespace: vaultwarden
+  project: k8s-shared
+  sources:
+    - chart: vaultwarden
+      helm:
+        releaseName: vaultwarden
+        valueFiles:
+          - helm/values.yaml
+      repoURL: https://guerzon.github.io/vaultwarden
+      targetRevision: 0.31.8
+    - repoURL: "https://github.com/ClubCedille/k8s-shared.git"
+      targetRevision: HEAD
+      ref: values
+    - repoURL: 'https://github.com/ClubCedille/k8s-shared.git'
+      path: apps/vaultwarden/resources
+      targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
