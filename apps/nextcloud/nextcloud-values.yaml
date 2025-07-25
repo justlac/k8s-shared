@@ -52,6 +52,7 @@ nextcloud:
   securityContext:
     runAsUser: 10000
     runAsGroup: 10000
+    fsGroup: 10000
     runAsNonRoot: true
     readOnlyRootFilesystem: false
 
@@ -59,6 +60,7 @@ nextcloud:
   podSecurityContext:
     runAsUser: 10000
     runAsGroup: 10000
+    fsGroup: 10000
     runAsNonRoot: true
     readOnlyRootFilesystem: false
 
@@ -241,6 +243,20 @@ redis:
 cronjob:
   enabled: true
   command: [/cron.sh]
+  securityContext:
+    runAsUser: 10000
+    runAsGroup: 10000
+    fsGroup: 10000
+    runAsNonRoot: true
+    readOnlyRootFilesystem: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 50m
+      memory: 64Mi
+      ephemeral-storage: 200Mi
 service:
   type: ClusterIP
   port: 8080
@@ -467,6 +483,7 @@ metrics:
     runAsUser: 10000
     runAsGroup: 10000
     runAsNonRoot: true
+    fsGroup: 10000
     allowPrivilegeEscalation: false
     capabilities:
       drop:

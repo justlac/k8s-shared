@@ -1,5 +1,4 @@
 ---
-# Maintenance window for automated backups
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -14,6 +13,10 @@ spec:
       template:
         spec:
           serviceAccountName: backup-runner
+          securityContext:
+            runAsUser: 10000
+            runAsGroup: 10000
+            fsGroup: 10000
           containers:
             - name: maint-on
               image: bitnami/kubectl:latest
@@ -23,6 +26,20 @@ spec:
                 - |
                   POD=$(kubectl get pod -n nextcloud -l app.kubernetes.io/name=nextcloud -o jsonpath="{.items[0].metadata.name}")
                   kubectl exec -n nextcloud $POD -- php occ maintenance:mode --on
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  cpu: 50m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                capabilities:
+                  drop:
+                    - ALL
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -39,6 +56,10 @@ spec:
       template:
         spec:
           serviceAccountName: backup-runner
+          securityContext:
+            runAsUser: 10000
+            runAsGroup: 10000
+            fsGroup: 10000
           containers:
             - name: maint-off
               image: bitnami/kubectl:latest
@@ -48,6 +69,20 @@ spec:
                 - |
                   POD=$(kubectl get pod -n nextcloud -l app.kubernetes.io/name=nextcloud -o jsonpath="{.items[0].metadata.name}")
                   kubectl exec -n nextcloud $POD -- php occ maintenance:mode --off
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  cpu: 50m
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                capabilities:
+                  drop:
+                    - ALL
           restartPolicy: OnFailure
 ---
 apiVersion: v1
