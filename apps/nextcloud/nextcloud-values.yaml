@@ -49,6 +49,19 @@ nextcloud:
     subPath:
   # if set, we'll template this list to the NEXTCLOUD_TRUSTED_DOMAINS env var
   trustedDomains: []
+  securityContext:
+    runAsUser: 10000
+    runAsGroup: 10000
+    runAsNonRoot: true
+    readOnlyRootFilesystem: false
+
+  # Set securityContext parameters for the entire pod. For example, you may need to define runAsNonRoot directive
+  podSecurityContext:
+    runAsUser: 10000
+    runAsGroup: 10000
+    runAsNonRoot: true
+    readOnlyRootFilesystem: false
+
   configs:
     users.config.php: |-
       <?php
@@ -273,9 +286,11 @@ resources:
   requests:
     memory: 10Gi
     cpu: 1500m
+    ephemeral-storage: 1Gi
   limits:
     memory: 30Gi
     cpu: 5000m
+    ephemeral-storage: 5Gi
 ## Liveness and readiness probe values
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 ##
@@ -414,7 +429,14 @@ metrics:
   ## Metrics exporter resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
   ##
-  resources: {}
+  resources:
+    requests:
+    memory: 50Mi
+    cpu: 50m
+  limits:
+    memory: 500Mi
+    cpu: 500m
+    ephemeral-storage: 500Mi
 
   # -- Metrics exporter pod Annotation
   podAnnotations: {}
@@ -442,18 +464,19 @@ metrics:
 
   # -- security context for the metrics CONTAINER in the pod
   securityContext:
-    runAsUser: 1000
+    runAsUser: 10000
+    runAsGroup: 10000
     runAsNonRoot: true
-    # allowPrivilegeEscalation: false
-    # capabilities:
-    #   drop:
-    #     - ALL
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
 
   # -- security context for the metrics POD
-  podSecurityContext: {}
-  # runAsNonRoot: true
-  # seccompProfile:
-  #   type: RuntimeDefault
+  podSecurityContext:
+    runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
 
   ## Prometheus Operator ServiceMonitor configuration
   ##
