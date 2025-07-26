@@ -23,6 +23,7 @@ spec:
           containers:
             - name: maint-on
               image: bitnami/kubectl:1.33.3
+              imagePullPolicy: Always
               command:
                 - /bin/sh
                 - -c
@@ -70,6 +71,7 @@ spec:
           containers:
             - name: maint-off
               image: bitnami/kubectl:1.33.3
+              imagePullPolicy: Always
               command:
                 - /bin/sh
                 - -c
