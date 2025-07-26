@@ -35,7 +35,7 @@ Restore a fully functional Nextcloud instance including:
     --namespace-mappings nextcloud:nextcloud-bk
     ```
 
-3. Restore PostgreSQL Database via CNPG
+3. Restore PostgreSQL Database via CNPG. See postgresql.yaml for a full sample.
 
     ```bash
     kubectl apply -f - <<EOF
