@@ -7,7 +7,7 @@ resources:
   - prod/certificate.yaml
   - prod/httpproxy.yaml
 helmCharts:
-  - name: matomo
+  - name: bitnami/matomo
     version: "2024.10.2"
     repo: https://charts.bitnami.com/bitnami
     releaseName: "matomo"

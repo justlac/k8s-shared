@@ -29,6 +29,7 @@ mariadb:
     resourcesPreset: "micro"
 
 matomo:
+  skipInstall: true
   persistence:
     enabled: true
     storageClass: "cephfs"
