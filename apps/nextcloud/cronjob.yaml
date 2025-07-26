@@ -4,8 +4,11 @@ kind: CronJob
 metadata:
   name: enable-maintenance
   namespace: nextcloud
+  annotations:
+    kube-score/ignore: pod-networkpolicy
 spec:
   schedule: 30 6 * * *  # UTC time. 2h30 am EST
+  startingDeadlineSeconds: 10
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -19,7 +22,7 @@ spec:
             fsGroup: 10000
           containers:
             - name: maint-on
-              image: bitnami/kubectl:latest
+              image: bitnami/kubectl:1.33.3
               command:
                 - /bin/sh
                 - -c
@@ -48,8 +51,11 @@ kind: CronJob
 metadata:
   name: disable-maintenance
   namespace: nextcloud
+  annotations:
+    kube-score/ignore: pod-networkpolicy
 spec:
   schedule: 20 7 * * *  # UTC time. 3h20 am EST
+  startingDeadlineSeconds: 10
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -63,7 +69,7 @@ spec:
             fsGroup: 10000
           containers:
             - name: maint-off
-              image: bitnami/kubectl:latest
+              image: bitnami/kubectl:1.33.3
               command:
                 - /bin/sh
                 - -c
