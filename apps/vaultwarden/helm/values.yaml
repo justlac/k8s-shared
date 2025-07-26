@@ -13,7 +13,7 @@ image:
   ## @param image.pullPolicy Vaultwarden image pull policy
   ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## @param image.pullSecrets Specify docker-registry secrets
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## Example:
@@ -23,22 +23,22 @@ image:
   pullSecrets: []
   ## @param image.extraSecrets Vaultwarden image extra secrets
   ## Example:
-  ## extraSecrets:
-  ##   - key: SSO_CLIENT_SECRET
-  ##     value: secretStuff
-  ##
   extraSecrets: []
+  #   - key: SSO_CLIENT_SECRET
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: vaultwarden-secret
+  #         key: SSO_CLIENT_SECRET
+  # ##
   ## @param image.extraVars Vaultwarden image extra vars
   ## Example:
-  ## extraVars:
-  ##   - key: SSO_AUTHORITY
-  ##     value: https://bananaguy.com/auth
-  ##
-  extraVars: []
+  extraVars:
+    - key: SSO_AUTHORITY
+      value: https://auth.etsmtl.club
 
 ## @param replicas Number of deployment replicas
 ##
-replicas: 1
+replicas: 2
 
 ## @param fullnameOverride String to override the application name.
 ##
@@ -102,23 +102,21 @@ serviceAccount:
 ## @param podSecurityContext Pod security options
 ##
 podSecurityContext:
-  {}
-  # fsGroup: 1001
-  # supplementalGroups:
-  #   - 1001
+  fsGroup: 1001
+  supplementalGroups:
+    - 1001
 
 ## @param securityContext Default security options to run vault as read only container without privilege escalation
 securityContext:
-  {}
-  # allowPrivilegeEscalation: false
-  # privileged: false
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsGroup: 1001
-  # runAsUser: 1001
-  # capabilities:
-  #   drop:
-  #     - ALL
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 1001
+  runAsUser: 1001
+  capabilities:
+    drop:
+      - ALL
 
 ## @param dnsConfig Pod DNS options
 ## Ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config
@@ -210,17 +208,12 @@ startupProbe:
 ## @param resources Resource configurations
 ##
 resources:
-  {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 300m
-  #   memory: 1Gi
-  # requests:
-  #   cpu: 50m
-  #   memory: 256Mi
+  limits:
+    cpu: 300m
+    memory: 1Gi
+  requests:
+    cpu: 50m
+    memory: 256Mi
 
 ## @param strategy Resource configurations
 ##
@@ -234,7 +227,7 @@ strategy:
 podDisruptionBudget:
   ## @param podDisruptionBudget.enabled Enable PodDisruptionBudget settings
   # ref: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
-  enabled: false
+  enabled: true
   ## @param podDisruptionBudget.minAvailable Minimum number/percentage of pods that should remain scheduled.
   # When it's set, maxUnavailable must be disabled by `maxUnavailable: null`
   minAvailable: 1
@@ -243,7 +236,6 @@ podDisruptionBudget:
 
 ## @section Persistent data configuration
 ##
-
 
 storage:
   ## @param storage.existingVolumeClaim If defined, the values here will be used for the data and
@@ -259,7 +251,7 @@ storage:
     size: "15Gi"
     class: "cephfs"
     path: "/data"
-    keepPvc: false
+    keepPvc: true
     accessMode: "ReadWriteOnce"
 
   ## @param storage.attachments Attachments directory configuration, refer to values.yaml for parameters.
