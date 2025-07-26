@@ -5,7 +5,7 @@ metadata:
 spec:
   secretName: docmost-tls
   issuerRef:
-    name: letsencrypt-staging
+    name: letsencrypt-etsmtl
     kind: ClusterIssuer
   commonName: wiki.etsmtl.club
   dnsNames:
@@ -18,7 +18,7 @@ metadata:
 spec:
   secretName: docmost-shared-tls
   issuerRef:
-    name: letsencrypt-staging
+    name: letsencrypt-etsmtl
     kind: ClusterIssuer
   commonName: docmost.shared.cedille.club
   dnsNames:
