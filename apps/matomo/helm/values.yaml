@@ -27,6 +27,9 @@ mariadb:
       size: 8Gi
     storageClass: "cephfs"
     resourcesPreset: "micro"
+  securityContext:
+     runAsUser: 1001
+     runAsGroup: 1001
 
 matomo:
   skipInstall: true

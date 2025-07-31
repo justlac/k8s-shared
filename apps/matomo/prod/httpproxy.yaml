@@ -14,9 +14,3 @@ spec:
           services:
             - name: matomo
               port: 80
-    - conditions:
-        - prefix: /websocket
-          enableWebsockets: true
-          services:
-            - name: matomo
-              port: 80
