@@ -38,7 +38,7 @@ image:
 
 ## @param replicas Number of deployment replicas
 ##
-replicas: 2
+replicas: 1
 
 ## @param fullnameOverride String to override the application name.
 ##
@@ -227,7 +227,7 @@ strategy:
 podDisruptionBudget:
   ## @param podDisruptionBudget.enabled Enable PodDisruptionBudget settings
   # ref: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
-  enabled: true
+  enabled: false
   ## @param podDisruptionBudget.minAvailable Minimum number/percentage of pods that should remain scheduled.
   # When it's set, maxUnavailable must be disabled by `maxUnavailable: null`
   minAvailable: 1
