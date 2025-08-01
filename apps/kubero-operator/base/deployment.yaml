@@ -18,10 +18,10 @@ spec:
     spec:
       containers:
         - args:
-          - --secure-listen-address=0.0.0.0:8443
-          - --upstream=http://127.0.0.1:8080/
-          - --logtostderr=true
-          - --v=0
+            - --secure-listen-address=0.0.0.0:8443
+            - --upstream=http://127.0.0.1:8080/
+            - --logtostderr=true
+            - --v=0
           image: gcr.io/kubebuilder/kube-rbac-proxy:v0.11.0
           name: kube-rbac-proxy
           ports:
@@ -36,11 +36,11 @@ spec:
               cpu: 5m
               memory: 64Mi
         - args:
-          - --health-probe-bind-address=:8081
-          - --metrics-bind-address=127.0.0.1:8080
-          - --leader-elect
-          - --leader-election-id=kubero-operator
-          - --zap-log-level=info
+            - --health-probe-bind-address=:8081
+            - --metrics-bind-address=127.0.0.1:8080
+            - --leader-elect
+            - --leader-election-id=kubero-operator
+            - --zap-log-level=info
           image: ghcr.io/kubero-dev/kubero-operator/kuberoapp:v0.1.9
           livenessProbe:
             httpGet:
