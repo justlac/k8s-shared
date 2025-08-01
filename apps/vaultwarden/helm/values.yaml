@@ -537,7 +537,7 @@ adminRateLimitSeconds: "300"
 
 ## @param adminRateLimitMaxBurst Allow a burst of requests of up to this size, while maintaining the average indicated by adminRateLimitSeconds.
 ##
-adminRateLimitMaxBurst: "3"
+adminRateLimitMaxBurst: "10"
 
 ## @param timeZone Specify timezone different from the default (UTC).
 ## For example: "Europe/Berlin"
