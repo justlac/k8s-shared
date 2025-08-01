@@ -4,6 +4,32 @@ metadata:
   name: kubero
 spec:
   # Default values copied from <project_dir>/helm-charts/kubero/values.yaml
+  env:
+    - name: OAUTH2_CLIENT_SECRET
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_SECRET
+          name: kubero-ui-secrets
+    - name: OAUTH2_CLIENT_NAME
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_NAME
+          name: kubero-ui-secrets
+    - name: OAUTH2_CLIENT_ID
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_ID
+          name: kubero-ui-secrets
+    - name: OAUTH2_CLIENT_AUTH_URL
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_AUTH_URL
+          name: kubero-ui-secrets
+    - name: OAUTH2_CLIENT_TOKEN_URL
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_TOKEN_URL
+          name: kubero-ui-secrets
   affinity: {}
   fullnameOverride: ""
   image:
@@ -70,14 +96,7 @@ spec:
         callbackUrl: ""
         org: ""
       oauth2:
-        enabled: false
-        name: ""
-        id: ""
-        authUrl: ""
-        tokenUrl: ""
-        secret: ""
-        callbackUrl: ""
-        scopes: ""
+        enabled: true
     auditLogs:
       enabled: false
       storageClassName:
@@ -93,11 +112,11 @@ spec:
         console:
           enabled: false
         banner:
-          show: false
-          message: "Welcome to Kubero!"
+          show: true
+          message: "Welcome to Kubero! CEDILLE"
           bgcolor: "#8560A9"
           fontcolor: "azure"
-      clusterissuer: letsencrypt-prod
+      clusterissuer: letsencrypt-etsmtl
       notifications: []
       templates:
         enabled: true
