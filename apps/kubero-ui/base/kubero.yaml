@@ -100,9 +100,9 @@ spec:
       kubero:
         readonly: false
         admin:
-          disabled: false
+          disabled: true
         console:
-          enabled: false
+          enabled: true
         banner:
           show: true
           message: "Welcome to Kubero! CEDILLE"
