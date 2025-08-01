@@ -13,7 +13,7 @@ spec:
         - prefix: /
       enableWebsockets: true
       services:
-        - name: kubero-ui
+        - name: kubero
           port: 2000
       timeoutPolicy:
         idle: 600s
