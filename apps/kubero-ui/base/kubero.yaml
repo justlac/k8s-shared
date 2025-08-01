@@ -4,6 +4,32 @@ metadata:
   name: kubero
 spec:
   # Default values copied from <project_dir>/helm-charts/kubero/values.yaml
+  env:
+    - name: OAUTH2_CLIENT_SECRET
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_SECRET
+          name: kubero-ui-secrets
+    - name: OAUTH2_CLIENT_NAME
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_NAME
+          name: kubero-ui-secrets
+    - name: OAUTH2_CLIENT_ID
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_ID
+          name: kubero-ui-secrets
+    - name: OAUTH2_CLIENT_AUTH_URL
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_AUTH_URL
+          name: kubero-ui-secrets
+    - name: OAUTH2_CLIENT_TOKEN_URL
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_TOKEN_URL
+          name: kubero-ui-secrets
   affinity: {}
   fullnameOverride: ""
   image:
@@ -12,15 +38,7 @@ spec:
     tag: "latest"
   imagePullSecrets: []
   ingress:
-    annotations: {}
-    className: ""
     enabled: false
-    hosts:
-    - host: kubero.lacolhost.com
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-    tls: []
   nameOverride: ""
   nodeSelector: {}
   podAnnotations: {}
@@ -70,18 +88,11 @@ spec:
         callbackUrl: ""
         org: ""
       oauth2:
-        enabled: false
-        name: ""
-        id: ""
-        authUrl: ""
-        tokenUrl: ""
-        secret: ""
-        callbackUrl: ""
-        scopes: ""
+        enabled: true
     auditLogs:
       enabled: false
       storageClassName:
-      accessModes: 
+      accessModes:
         - ReadWriteOnce
       size: 0.1Gi
       limit: 1000
@@ -93,27 +104,26 @@ spec:
         console:
           enabled: false
         banner:
-          show: false
-          message: "Welcome to Kubero!"
+          show: true
+          message: "Welcome to Kubero! CEDILLE"
           bgcolor: "#8560A9"
           fontcolor: "azure"
-      clusterissuer: letsencrypt-prod
       notifications: []
       templates:
         enabled: true
         catalogs:
-        - name: "Kubero"
-          description: "Kubero templates"
-          templateBasePath: "https://raw.githubusercontent.com/kubero-dev/kubero/main/services/"
-          index: 
-            url: "https://raw.githubusercontent.com/kubero-dev/templates/main/index.json"
-            format: "json" # json or yaml # TODO has no effect yet. json is always used
-        - name: "Kubero Frameworks"
-          description: "Kubero templates"
-          templateBasePath: "https://raw.githubusercontent.com/kubero-dev/kubero/main/services/"
-          index: 
-            url: "https://raw.githubusercontent.com/kubero-dev/templates/main/index-frameworks.json"
-            format: "json" # json or yaml # TODO has no effect yet. json is always used
+          - name: "Kubero"
+            description: "Kubero templates"
+            templateBasePath: "https://raw.githubusercontent.com/kubero-dev/kubero/main/services/"
+            index:
+              url: "https://raw.githubusercontent.com/kubero-dev/templates/main/index.json"
+              format: "json" # json or yaml # TODO has no effect yet. json is always used
+          - name: "Kubero Frameworks"
+            description: "Kubero templates"
+            templateBasePath: "https://raw.githubusercontent.com/kubero-dev/kubero/main/services/"
+            index:
+              url: "https://raw.githubusercontent.com/kubero-dev/templates/main/index-frameworks.json"
+              format: "json" # json or yaml # TODO has no effect yet. json is always used
       buildPacks:
         - name: NodeJS
           language: JavaScript
@@ -227,32 +237,32 @@ spec:
             tag: latest
             command: caddy file-server --listen :8080 --root /app
       podSizeList:
-      - name: small
-        description: 'Small (CPU: 0.25, Memory: 0.5Gi)'
-        default: true
-        resources:
-          requests:
-            memory: 0.5Gi
-            cpu: 250m
-          limits:
-            memory: 1Gi
-            cpu: 500m
-      - name: medium
-        description: 'Medium (CPU: 1, Memory: 2Gi)'
-        resources:
-          requests:
-            memory: 2Gi
-            cpu: 1000m
-          limits:
-            memory: 4Gi
-            cpu: 2000m
-      - name: large
-        description: 'Large (CPU: 2, Memory: 4Gi)'
-        active: false
-        resources:
-          requests:
-            memory: 4Gi
-            cpu: 2000m
-          limits:
-            memory: 4Gi
-            cpu: 2000m
+        - name: small
+          description: 'Small (CPU: 0.25, Memory: 0.5Gi)'
+          default: true
+          resources:
+            requests:
+              memory: 0.5Gi
+              cpu: 250m
+            limits:
+              memory: 1Gi
+              cpu: 500m
+        - name: medium
+          description: 'Medium (CPU: 1, Memory: 2Gi)'
+          resources:
+            requests:
+              memory: 2Gi
+              cpu: 1000m
+            limits:
+              memory: 4Gi
+              cpu: 2000m
+        - name: large
+          description: 'Large (CPU: 2, Memory: 4Gi)'
+          active: false
+          resources:
+            requests:
+              memory: 4Gi
+              cpu: 2000m
+            limits:
+              memory: 4Gi
+              cpu: 2000m
