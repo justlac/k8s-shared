@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Kustomization
+
+resources:
+  - base/config-map.yaml
+  - base/deployment.yaml
+  - base/kubero-crd.yaml
+  - base/rbac.yaml
+  - base/service-account.yaml
+  - base/service.yaml
