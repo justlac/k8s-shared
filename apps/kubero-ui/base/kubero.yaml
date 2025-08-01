@@ -30,6 +30,16 @@ spec:
         secretRef:
           key: OAUTH2_CLIENT_TOKEN_URL
           name: kubero-ui-secrets
+    - name: OAUTH2_USERINFO_URL
+      valueFrom:
+        secretRef:
+          key: OAUTH2_USERINFO_URL
+          name: kubero-ui-secrets
+    - name: OAUTH2_SCOPE
+      valueFrom:
+        secretRef:
+          key: OAUTH2_SCOPE
+          name: kubero-ui-secrets
   affinity: {}
   fullnameOverride: ""
   image:
