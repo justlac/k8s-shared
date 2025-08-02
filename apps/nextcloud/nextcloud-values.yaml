@@ -231,9 +231,9 @@ redis:
     enabled: true
     existingSecret: redis-secret
     existingSecretPasswordKey: secret
+  image:
+    pullPolicy: always
   master:
-    image:
-      imagePullPolicy: always
     persistence:
       enabled: false
     containerSecurityContext:
@@ -241,8 +241,6 @@ redis:
       runAsUser: 10000
       runAsGroup: 10000
   replica:
-    image:
-      imagePullPolicy: always
     persistence:
       enabled: false
     containerSecurityContext:
