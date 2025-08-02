@@ -232,7 +232,7 @@ redis:
     existingSecret: redis-secret
     existingSecretPasswordKey: secret
   image:
-    pullPolicy: always
+    imagePullPolicy: Always
   master:
     persistence:
       enabled: false
