@@ -234,9 +234,21 @@ redis:
   master:
     persistence:
       enabled: false
+    securityContext:
+      runAsUser: 10000
+      runAsGroup: 10000
+      fsGroup: 10000
+      runAsNonRoot: true
+      readOnlyRootFilesystem: true
   replica:
     persistence:
       enabled: false
+    securityContext:
+      runAsUser: 10000
+      runAsGroup: 10000
+      fsGroup: 10000
+      runAsNonRoot: true
+      readOnlyRootFilesystem: true
 ## Cronjob to execute Nextcloud background tasks
 ## ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron
 ##
