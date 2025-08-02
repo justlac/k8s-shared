@@ -226,14 +226,16 @@ externalDatabase:
 ## for more options see https://github.com/bitnami/charts/tree/main/bitnami/redis
 ##
 redis:
+  image:
+    pullPolicy: Always
   enabled: true
   auth:
     enabled: true
     existingSecret: redis-secret
     existingSecretPasswordKey: secret
-  image:
-    imagePullPolicy: Always
   master:
+    image:
+      pullPolicy: Always
     persistence:
       enabled: false
     containerSecurityContext:
@@ -241,6 +243,8 @@ redis:
       runAsUser: 10000
       runAsGroup: 10000
   replica:
+    image:
+      pullPolicy: Always
     persistence:
       enabled: false
     containerSecurityContext:
