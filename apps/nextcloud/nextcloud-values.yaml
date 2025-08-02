@@ -241,8 +241,6 @@ redis:
       runAsUser: 10000
       runAsGroup: 10000
   replica:
-    image:
-      pullPolicy: Always
     persistence:
       enabled: false
     containerSecurityContext:
