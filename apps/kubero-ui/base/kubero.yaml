@@ -15,7 +15,12 @@ spec:
     - name: OAUTO2_CLIENT_NAME
       valueFrom:
         secretRef:
-          key: OAUTO2_CLIENT_NAME
+          key: OAUTH2_CLIENT_NAME
+          name: kubero-secrets
+    - name: OAUTH2_CLIENT_NAME
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_NAME
           name: kubero-secrets
     - name: OAUTH2_CLIENT_ID
       valueFrom:
@@ -25,12 +30,22 @@ spec:
     - name: OAUTO2_CLIENT_AUTH_URL
       valueFrom:
         secretRef:
-          key: OAUTO2_CLIENT_AUTH_URL
+          key: OAUTH2_CLIENT_AUTH_URL
           name: kubero-secrets
     - name: OAUTO2_CLIENT_TOKEN_URL
       valueFrom:
         secretRef:
-          key: OAUTO2_CLIENT_TOKEN_URL
+          key: OAUTH2_CLIENT_TOKEN_URL
+          name: kubero-secrets
+    - name: OAUTH2_CLIENT_AUTH_URL
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_AUTH_URL
+          name: kubero-secrets
+    - name: OAUTH2_CLIENT_TOKEN_URL
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_TOKEN_URL
           name: kubero-secrets
     - name: OAUTH2_USERINFO_URL
       valueFrom:
