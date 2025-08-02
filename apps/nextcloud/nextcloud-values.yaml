@@ -232,27 +232,23 @@ redis:
     existingSecret: redis-secret
     existingSecretPasswordKey: secret
   master:
+    image:
+      pullPolicy: always
     persistence:
       enabled: false
     containerSecurityContext:
       enabled: true
-      seLinuxOptions: {}
-      runAsUser: 1001
-      runAsGroup: 1001
-      runAsNonRoot: true
-      allowPrivilegeEscalation: false
-      readOnlyRootFilesystem: true
+      runAsUser: 10000
+      runAsGroup: 10000
   replica:
+    image:
+      pullPolicy: always
     persistence:
       enabled: false
     containerSecurityContext:
       enabled: true
-      seLinuxOptions: {}
-      runAsUser: 1001
-      runAsGroup: 1001
-      runAsNonRoot: true
-      allowPrivilegeEscalation: false
-      readOnlyRootFilesystem: true
+      runAsUser: 10000
+      runAsGroup: 10000
 ## Cronjob to execute Nextcloud background tasks
 ## ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron
 ##
