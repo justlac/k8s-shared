@@ -52,7 +52,7 @@ spec:
   image:
     pullPolicy: Always
     repository: ghcr.io/kubero-dev/kubero/kubero
-    tag: "v3.0.0-rc.9"
+    tag: "latest"
   imagePullSecrets: []
   ingress:
     enabled: false
@@ -98,12 +98,6 @@ spec:
     webhook_url: https://kubero.example.com/api/repo/webhooks
     sessionKey: "randomString"
     auth:
-      github:
-        enabled: false
-        id: ""
-        secret: ""
-        callbackUrl: ""
-        org: ""
       oauth2:
         enabled: true
         name: "authentik"
