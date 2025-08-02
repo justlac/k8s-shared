@@ -113,7 +113,7 @@ spec:
         userInfoUrl: "https://auth.etsmtl.club/application/o/userinfo/"
         secret: "Z8F4w8WAewZT5KlqdVUWAwqpAyBRdWrDhSn9dQbyFslIqcacxcxn7MgdovhWgUTMPzgy0OKowA9paNZt9RiKiauXqQSFZ3qpLhhVaFjOcYXuAwuveh7dcCooNwG9voec"
         callbackUrl: "https://kubero.etsmtl.club/auth/oauth2/callback"
-        scope: "openid,email,profile" # space seperated list of scopes
+        scope: "openid email profile" # space seperated list of scopes
     auditLogs:
       enabled: false
       storageClassName:
