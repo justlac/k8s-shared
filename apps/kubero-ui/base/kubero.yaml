@@ -5,6 +5,8 @@ metadata:
 spec:
   # Default values copied from <project_dir>/helm-charts/kubero/values.yaml
   env:
+    - name: KUBERO_AUTH
+      value: "true"
     - name: OAUTH2_CLIENT_SECRET
       valueFrom:
         secretRef:
@@ -50,7 +52,7 @@ spec:
   image:
     pullPolicy: Always
     repository: ghcr.io/kubero-dev/kubero/kubero
-    tag: "latest"
+    tag: "v3.0.0-rc.9"
   imagePullSecrets: []
   ingress:
     enabled: false
