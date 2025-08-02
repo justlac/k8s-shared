@@ -233,7 +233,7 @@ redis:
     existingSecretPasswordKey: secret
   master:
     image:
-      pullPolicy: always
+      imagePullPolicy: always
     persistence:
       enabled: false
     containerSecurityContext:
@@ -242,7 +242,7 @@ redis:
       runAsGroup: 10000
   replica:
     image:
-      pullPolicy: always
+      imagePullPolicy: always
     persistence:
       enabled: false
     containerSecurityContext:
