@@ -10,7 +10,7 @@ spec:
       secretName: matomo-tls
   routes:
     - conditions:
-      - prefix: /
+        - prefix: /
       services:
         - name: matomo
           port: 80
