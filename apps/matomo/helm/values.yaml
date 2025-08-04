@@ -28,8 +28,9 @@ mariadb:
     storageClass: "cephfs"
     resourcesPreset: "micro"
   securityContext:
-    runAsUser: 1001
-    runAsGroup: 1001
+    enabled: true
+    fsGroup: 10001
+    runAsUser: 10001
 
 matomo:
   skipInstall: true
