@@ -34,7 +34,7 @@ mariadb:
 
 matomo:
   skipInstall: true
-  securityContext:
+  containerSecurityContext:
     enabled: true
     fsGroup: 10001
     runAsUser: 10001
