@@ -21,6 +21,11 @@ mariadb:
   primary:
     persistence:
       enabled: true
+      containerSecurityContext:
+        enabled: true
+        fsGroup: 10000
+        runAsUser: 10000
+        runAsGroup: 10000
       storageClass: "cephfs"
       accessModes:
         - ReadWriteOnce
@@ -28,21 +33,15 @@ mariadb:
     storageClass: "cephfs"
     resourcesPreset: "micro"
     imagePullPolicy: Always
-  containerSecurityContext:
-    enabled: true
-    fsGroup: 10000
-    runAsUser: 10000
-    runAsGroup: 10000
-
 matomo:
   skipInstall: true
-  containerSecurityContext:
-    enabled: true
-    fsGroup: 10000
-    runAsUser: 10000
-    runAsGroup: 10000
   persistence:
     enabled: true
+    containerSecurityContext:
+      enabled: true
+      fsGroup: 10000
+      runAsUser: 10000
+      runAsGroup: 10000
     storageClass: "cephfs"
     accessModes:
       - ReadWriteOnce
