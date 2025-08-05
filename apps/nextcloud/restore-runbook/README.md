@@ -97,7 +97,7 @@ Restore a fully functional Nextcloud instance including:
 6. Exit Maintenance Mode
 
     ```bash
-    kubectl exec -n nextcloud $(kubectl get pod -n nextcloud -l app.kubernetes.io/name=nextcloud -o jsonpath="{.items[0].metadata.name}")-- php occ maintenance:mode --off
+    kubectl exec -n nextcloud $(kubectl get pod -n nextcloud -l app.kubernetes.io/name=nextcloud -o jsonpath="{.items[0].metadata.name}") -- php occ maintenance:mode --off
     ```
 
 7. If testing on nextcloud-bk instance, use this one liner to update trusted domain that gets overwritten by restoring the backup:
