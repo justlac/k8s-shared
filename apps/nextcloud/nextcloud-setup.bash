@@ -12,7 +12,7 @@ php /var/www/html/occ app:install user_oidc
 php /var/www/html/occ app:install richdocuments
 php /var/www/html/occ app:install groupfolders
 php /var/www/html/occ app:install previewgenerator
-php /var/www/html/occ app:install integration_excalidraw
+# php /var/www/html/occ app:install integration_excalidraw
 php /var/www/html/occ app:install drawio
 php /var/www/html/occ app:install external
 php /var/www/html/occ app:install notes
@@ -86,6 +86,8 @@ for name in $yaml_names; do
     php /var/www/html/occ groupfolders:group  "${folder_id}" "exec-${name}"
     php /var/www/html/occ groupfolders:permissions "${folder_id}" --enable
     php /var/www/html/occ groupfolders:permissions "${folder_id}" -m -g exec-${name}
+    php /var/www/html/occ groupfolders:permissions "${folder_id}" -g club-cedille / +read, +write, +create, +delete, +share
+    php /var/www/html/occ groupfolders:permissions "${folder_id}" -g exec-cedille / +read, +write, +create, +delete, +share
     php /var/www/html/occ groupfolders:quota  "${folder_id}" "${target_quota}"
   elif  [[ $target_quota != $(echo "$json_api" | jq ".[] | select(.mount_point == \"$name\") | .quota") ]]; then
     echo "Updating groupfolder quota for $name"
