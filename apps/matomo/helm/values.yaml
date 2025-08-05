@@ -13,19 +13,21 @@ ingress:
 mariadb:
   enabled: true
   architecture: standalone
+  image:
+    pullPolicy: Always
   auth:
     rootPassword: "root"
     database: bitnami_matomo
     username: bn_matomo
     password: "root"
   primary:
+    containerSecurityContext:
+      enabled: true
+      fsGroup: 10001
+      runAsUser: 10001
+      runAsGroup: 10001
     persistence:
       enabled: true
-      containerSecurityContext:
-        enabled: true
-        fsGroup: 10000
-        runAsUser: 10000
-        runAsGroup: 10000
       storageClass: "cephfs"
       accessModes:
         - ReadWriteOnce
@@ -33,15 +35,12 @@ mariadb:
     storageClass: "cephfs"
     resourcesPreset: "micro"
     imagePullPolicy: Always
+
 matomo:
   skipInstall: true
   persistence:
     enabled: true
-    containerSecurityContext:
-      enabled: true
-      fsGroup: 10000
-      runAsUser: 10000
-      runAsGroup: 10000
+    imagePullPolicy: Always
     storageClass: "cephfs"
     accessModes:
       - ReadWriteOnce
@@ -51,8 +50,10 @@ matomo:
   domain: "matomo.etsmtl.club"
   service:
     type: ClusterIP
-  imagePullPolicy: Always
-  securityContext:
-    allowPrivilegeEscalation: false
-    runAsNonRoot: true
-    readOnlyRootFilesystem: true
+
+image:
+  pullPolicy: Always
+containerSecurityContext:
+  runAsGroup: 10001
+  runAsUser: 10001
+  readOnlyRootFilesystem: true
