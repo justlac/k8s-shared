@@ -114,7 +114,6 @@ for id in $external_sites_ids; do
   external_site_logo_url=$(yq -r ".[] | select(.id == $id) | .icon_url" "$EXTERNAL_SITES_YAML")
   ext="${external_site_logo_url##*.}"
   curl -o /var/www/html/data/$appdata/external/icons/$external_site_name.$ext "$external_site_logo_url"
-  external_site_icon=$(yq -r ".[] | select(.id == $id) | .icon" "$EXTERNAL_SITES_YAML")
   
   echo $external_site_name
   EXTERNAL_SITES_JSON=$(echo "$EXTERNAL_SITES_JSON" | jq ".\"$id\" = {
