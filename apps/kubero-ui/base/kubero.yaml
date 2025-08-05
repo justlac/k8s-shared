@@ -4,49 +4,17 @@ metadata:
   name: kubero
 spec:
   # Default values copied from <project_dir>/helm-charts/kubero/values.yaml
-  # env:
-  #   - name: KUBERO_AUTH
-  #     value: "true"
-  #   - name: OAUTH2_CLIENT_SECRET
-  #     valueFrom:
-  #       secretRef:
-  #         key: OAUTH2_CLIENT_SECRET
-  #         name: kubero-secrets
-  #   - name: OAUTH2_CLIENT_NAME
-  #     valueFrom:
-  #       secretRef:
-  #         key: OAUTH2_CLIENT_NAME
-  #         name: kubero-secrets
-  #   - name: OAUTH2_CLIENT_ID
-  #     valueFrom:
-  #       secretRef:
-  #         key: OAUTH2_CLIENT_ID
-  #         name: kubero-secrets
-  #   - name: OAUTH2_CLIENT_AUTH_URL
-  #     valueFrom:
-  #       secretRef:
-  #         key: OAUTH2_CLIENT_AUTH_URL
-  #         name: kubero-secrets
-  #   - name: OAUTH2_CLIENT_TOKEN_URL
-  #     valueFrom:
-  #       secretRef:
-  #         key: OAUTH2_CLIENT_TOKEN_URL
-  #         name: kubero-secrets
-  #   - name: OAUTH2_USERINFO_URL
-  #     valueFrom:
-  #       secretRef:
-  #         key: OAUTH2_USERINFO_URL
-  #         name: kubero-secrets
-  #   - name: OAUTH2_SCOPE
-  #     valueFrom:
-  #       secretRef:
-  #         key: OAUTH2_SCOPE
-  #         name: kubero-secrets
-  #   - name: OAUTH2_CALLBACKURL
-  #     valueFrom:
-  #       secretRef:
-  #         key: OAUTH2_CALLBACKURL
-  #         name: kubero-secrets
+  env:
+    - name: OAUTH2_CLIENT_SECRET
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_SECRET
+          name: kubero-secrets
+    - name: OAUTH2_CLIENT_ID
+      valueFrom:
+        secretRef:
+          key: OAUTH2_CLIENT_ID
+          name: kubero-secrets
   affinity: {}
   fullnameOverride: ""
   image:
@@ -101,11 +69,9 @@ spec:
       oauth2:
         enabled: true
         name: "authentik"
-        id: "uD9NgvVbqMQ7Mjb45ysypfkNd9DACSBCrVwA4SUR"
         authUrl: "https://auth.etsmtl.club/application/o/authorize/"
         tokenUrl: "https://auth.etsmtl.club/application/o/token/"
         userInfoUrl: "https://auth.etsmtl.club/application/o/userinfo/"
-        secret: "Z8F4w8WAewZT5KlqdVUWAwqpAyBRdWrDhSn9dQbyFslIqcacxcxn7MgdovhWgUTMPzgy0OKowA9paNZt9RiKiauXqQSFZ3qpLhhVaFjOcYXuAwuveh7dcCooNwG9voec"
         callbackUrl: "https://kubero.etsmtl.club/api/auth/oauth2/callback"
         scope: "openid email profile" # space seperated list of scopes
     auditLogs:
@@ -128,6 +94,7 @@ spec:
           bgcolor: "#8560A9"
           fontcolor: "azure"
       notifications: []
+      clusterissuer: letsencrypt-etsmtl
       templates:
         enabled: true
         catalogs:
