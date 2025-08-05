@@ -1,5 +1,5 @@
 replicaCount: 1
-
+namespace: matomo
 persistence:
   enabled: true
   storageClass: "cephfs"
@@ -23,7 +23,6 @@ mariadb:
   primary:
     containerSecurityContext:
       enabled: true
-      fsGroup: 10001
       runAsUser: 10001
       runAsGroup: 10001
     persistence:
