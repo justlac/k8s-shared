@@ -57,12 +57,12 @@ nextcloud:
   #   readOnlyRootFilesystem: false
 
   # Set securityContext parameters for the entire pod. For example, you may need to define runAsNonRoot directive
-  podSecurityContext:
-    runAsUser: 10000
-    runAsGroup: 10000
-    fsGroup: 10000
-    runAsNonRoot: true
-    readOnlyRootFilesystem: false
+  # podSecurityContext:
+  #   runAsUser: 10000
+  #   runAsGroup: 10000
+  #   fsGroup: 10000
+  #   runAsNonRoot: true
+  #   readOnlyRootFilesystem: false
 
   configs:
     users.config.php: |-
