@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: nextcloud-ingress-tls
   issuerRef:
-    name: letsencrypt-http
+    name: letsencrypt-etsmtl
     kind: ClusterIssuer
   commonName: nextcloud.etsmtl.club
   dnsNames: [nextcloud.etsmtl.club]
@@ -18,7 +18,7 @@ metadata:
 spec:
   secretName: collabora-ingress-tls
   issuerRef:
-    name: letsencrypt-http
+    name: letsencrypt-etsmtl
     kind: ClusterIssuer
   commonName: collabora-nextcloud.etsmtl.club
   dnsNames: [collabora-nextcloud.etsmtl.club]
