@@ -29,7 +29,7 @@ spec:
   podAnnotations: {}
   podSecurityContext: {}
   prometheus:
-    enabled: false
+    enabled: true
     endpoint: http://kubero-prometheus-server # for internal access via service without ingress
   registry:
     enabled: false  # creates registry credentials for a external or a local registry (required for build strategy apps)
