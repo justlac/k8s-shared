@@ -255,12 +255,12 @@ cronjob:
   command: [/cron.sh]
   resources:
     requests:
-      cpu: 10m
-      memory: 32Mi
-    limits:
       cpu: 50m
-      memory: 64Mi
-      ephemeral-storage: 200Mi
+      memory: 250Mi
+    limits:
+      cpu: 350m
+      memory: 1Gi
+      ephemeral-storage: 500Mi
 service:
   type: ClusterIP
   port: 8080
