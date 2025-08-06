@@ -6,6 +6,9 @@ YAML_FILE=/tmp/clubs.yaml
 apt update
 apt install -y jq yq
 
+# Configure cron
+php /var/www/html/occ background:cron
+
 # install apps
 
 php /var/www/html/occ app:install user_oidc

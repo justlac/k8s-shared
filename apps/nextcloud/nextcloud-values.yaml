@@ -253,12 +253,6 @@ redis:
 cronjob:
   enabled: true
   command: [/cron.sh]
-  securityContext:
-    runAsUser: 10000
-    runAsGroup: 10000
-    fsGroup: 10000
-    runAsNonRoot: true
-    readOnlyRootFilesystem: true
   resources:
     requests:
       cpu: 10m
