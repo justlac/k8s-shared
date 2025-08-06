@@ -51,7 +51,7 @@ php /var/www/html/occ config:app:set files default_quota --value="0 B"
 THEME_COLOR="#E40032"
 THEME_NAME="Nextcloud ÉTS"
 THEME_LOGO_URL="https://www.etsmtl.ca/assets/img/ets.svg"
-THEME_BACKGROUND_URL="https://www.etsmtl.ca/uploads/ligne4-3.jpg"
+THEME_BACKGROUND_URL="https://www.etsmtl.ca/uploads/ETS_50e_ext%C3%A9rieur-ID-1068690.jpg"
 
 php /var/www/html/occ theming:config primary_color "${THEME_COLOR}"
 php /var/www/html/occ theming:config name "${THEME_NAME}"
