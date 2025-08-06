@@ -82,8 +82,8 @@ for name in $yaml_names; do
     echo "Creating groupfolder for $name"
     folder_id=$(php /var/www/html/occ groupfolders:create "${name}")
     echo Folder ID: $folder_id
-    php /var/www/html/occ groupfolders:group  "${folder_id}" "club-${name}"
-    php /var/www/html/occ groupfolders:group  "${folder_id}" "exec-${name}"
+    php /var/www/html/occ groupfolders:group  "${folder_id}" "club-${name}" read write share delete
+    php /var/www/html/occ groupfolders:group  "${folder_id}" "exec-${name}" read write share delete
     php /var/www/html/occ groupfolders:permissions "${folder_id}" --enable
     php /var/www/html/occ groupfolders:permissions "${folder_id}" -m -g exec-${name}
     php /var/www/html/occ groupfolders:permissions "${folder_id}" -g club-cedille / +read +write +create +delete +share
