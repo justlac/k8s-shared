@@ -12,6 +12,11 @@ spec:
       owner: nextcloud
       secret:
         name: nextcloud-postgresql
+  env:
+  - name: AWS_REQUEST_CHECKSUM_CALCULATION
+    value: when_required
+  - name: AWS_RESPONSE_CHECKSUM_VALIDATION
+    value: when_required
   backup:
     barmanObjectStore:
       destinationPath: s3://k8s-shared-bucket/postgresql-nextcloud
