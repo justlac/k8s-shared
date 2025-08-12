@@ -797,6 +797,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kubero-operator-controller-manager
+  namespace: kubero-operator-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -809,6 +810,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kubero-operator-controller-manager
+  namespace: kubero-operator-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -821,4 +823,5 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kubero-operator-controller-manager
+  namespace: kubero-operator-system
 ---
