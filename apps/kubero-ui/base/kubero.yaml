@@ -20,7 +20,7 @@ spec:
   image:
     pullPolicy: Always
     repository: ghcr.io/kubero-dev/kubero/kubero
-    tag: "latest"
+    tag: "v3.0.0"
   imagePullSecrets: []
   ingress:
     enabled: false
