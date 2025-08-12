@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: kubero-ui
+    namespace: kubero
     server: https://cedille.kubernetes.omni.siderolabs.io?cluster=k8s-shared
   project: k8s-shared
   source:
