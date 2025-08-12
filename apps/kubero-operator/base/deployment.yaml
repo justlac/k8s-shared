@@ -41,7 +41,7 @@ spec:
             - --leader-elect
             - --leader-election-id=kubero-operator
             - --zap-log-level=info
-          image: ghcr.io/kubero-dev/kubero-operator/kuberoapp:latest
+          image: ghcr.io/kubero-dev/kubero-operator/kuberoapp:v0.1.10
           livenessProbe:
             httpGet:
               path: /healthz
