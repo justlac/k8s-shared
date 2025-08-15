@@ -10,7 +10,7 @@ spec:
   bootstrap:
     recovery:
       backup:
-        name: cnpg-backup-schedule-20250520232600
+        name: cnpg-backup-docmost
   storage:
     size: 10Gi
     storageClass: cephfs
