@@ -1,0 +1,16 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgresql-docmost-backup
+  namespace: staging
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.2
+  instances: 3
+  bootstrap:
+    recovery:
+      backup:
+        name: cnpg-backup-schedule-20250520232600
+  storage:
+    size: 10Gi
+    storageClass: cephfs
