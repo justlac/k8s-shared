@@ -13,8 +13,17 @@ spec:
       secret:
         name: nextcloud-postgresql
   storage:
-    size: 50Gi
+    size: 100Gi
     storageClass: cephfs
+  # walStorage:
+  #   size: 20Gi
+  #   storageClass: cephfs 
+  postgresql:
+    parameters:
+      wal_compression: "on"
+      wal_keep_size: "1GB"
+      # max_wal_size: "4GB"
+      max_slot_wal_keep_size: "10GB"
   # backup: needs a cleanup cronjob to delete old backups
   #   volumeSnapshot:
   #     className: csi-cephfsplugin-snapclass
