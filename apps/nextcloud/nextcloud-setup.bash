@@ -85,11 +85,11 @@ for name in $yaml_names; do
     echo "Creating groupfolder for $name"
     folder_id=$(php /var/www/html/occ groupfolders:create "${name}")
     echo Folder ID: $folder_id
-    php /var/www/html/occ groupfolders:group  "${folder_id}" "club-${name}" read write share delete
+    php /var/www/html/occ groupfolders:group  "${folder_id}" "club-${name}" read write
     php /var/www/html/occ groupfolders:group  "${folder_id}" "exec-${name}" read write share delete
     php /var/www/html/occ groupfolders:permissions "${folder_id}" --enable
     php /var/www/html/occ groupfolders:permissions "${folder_id}" -m -g exec-${name}
-    php /var/www/html/occ groupfolders:permissions "${folder_id}" -g club-cedille / +read +write +create +delete +share
+    php /var/www/html/occ groupfolders:permissions "${folder_id}" -g club-cedille / +read +write +create
     php /var/www/html/occ groupfolders:permissions "${folder_id}" -g exec-cedille / +read +write +create +delete +share
     php /var/www/html/occ groupfolders:quota  "${folder_id}" "${target_quota}"
   elif  [[ $target_quota != $(echo "$json_api" | jq ".[] | select(.mount_point == \"$name\") | .quota") ]]; then
@@ -119,7 +119,7 @@ for id in $external_sites_ids; do
   external_site_logo_url=$(yq -r ".[] | select(.id == $id) | .icon_url" "$EXTERNAL_SITES_YAML")
   ext="${external_site_logo_url##*.}"
   curl -o /var/www/html/data/$appdata/external/icons/$external_site_name.$ext "$external_site_logo_url"
-  
+
   echo $external_site_name
   EXTERNAL_SITES_JSON=$(echo "$EXTERNAL_SITES_JSON" | jq ".\"$id\" = {
     \"id\": $id,
