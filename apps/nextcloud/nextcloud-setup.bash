@@ -99,7 +99,6 @@ for name in $yaml_names; do
   fi
 done
 
-
 # External sites
 
 # EXTERNAL_SITES_YAML=apps/nextcloud/job-files/external-sites.yaml
