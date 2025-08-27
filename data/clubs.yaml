@@ -2,3 +2,5 @@
 - name: cedille
   external_sites: [planka]
   quota: 100
+- name: conjure
+  quota: 300
