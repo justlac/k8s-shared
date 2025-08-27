@@ -57,7 +57,7 @@ redis:
 
 additionalVolumeMounts:
   - name: authentik-branding
-    mountPath: /branding
+    mountPath: /media/custom/branding
 
 additionalVolumes:
   - name: authentik-branding
