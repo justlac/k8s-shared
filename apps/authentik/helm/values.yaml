@@ -23,7 +23,11 @@ global:
   initContainers:
     - name: init-permissions
       image: busybox
-      command: ["sh", "-c", "chmod 777 /media/custom/branding"]
+      command:
+        - /bin/sh
+        - -c
+        - |
+          chown -R <1000>:<1000> /media/custom/branding
 
   env:
     - name: AUTHENTIK_SECRET_KEY
