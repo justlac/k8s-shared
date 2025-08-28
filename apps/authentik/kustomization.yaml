@@ -6,7 +6,7 @@ metadata:
 resources:
   - resources/certificate.yaml
   - resources/httpproxy.yaml
-  - resources/logo-configmap.yaml
+  - resources/pvc.yaml
 helmCharts:
   - name: authentik
     version: "2025.2.1"
