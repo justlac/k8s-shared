@@ -28,7 +28,7 @@ global:
         - -c
         - |
           chown -R <1000>:<1000> /media/custom/branding
-  securityContext: {}
+  securityContext:
     runAsUser: 1000
     runAsGroup: 1000
     fsGroup: 1000
