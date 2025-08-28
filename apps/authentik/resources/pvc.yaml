@@ -3,7 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: authentik-branding-pvc
 spec:
-  accessModes: [ReadWriteMany]
+  accessModes:
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
