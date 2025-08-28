@@ -13,14 +13,13 @@ defaultStorageClass: cephfs
 global:
   storageClass: cephfs
   namespace: "authentik"
-  additionalVolumeMounts:
-    - name: authentik-branding
-      mountPath: /media/custom/branding
-
-  additionalVolumes:
+  volumes:
     - name: authentik-branding
       persistentVolumeClaim:
         claimName: authentik-branding-pvc
+  volumeMounts:
+    - name: authentik-branding
+      mountPath: /media/custom/branding
 
   env:
     - name: AUTHENTIK_SECRET_KEY
