@@ -5,8 +5,8 @@ metadata:
 spec:
   secretName: docmost-tls
   issuerRef:
-    name: letsencrypt-http
+    name: letsencrypt-etsmtl
     kind: ClusterIssuer
-  commonName: docmost.etsmtl.club
+  commonName: wiki.etsmtl.club
   dnsNames:
-    - docmost.etsmtl.club
+    - wiki.etsmtl.club

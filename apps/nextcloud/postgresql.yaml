@@ -1,0 +1,91 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgresql-nextcloud
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.9
+  instances: 3
+  bootstrap:
+    initdb:
+      database: nextcloud
+      owner: nextcloud
+      secret:
+        name: nextcloud-postgresql
+  storage:
+    size: 100Gi
+    storageClass: cephfs
+  # walStorage:
+  #   size: 20Gi
+  #   storageClass: cephfs 
+  postgresql:
+    parameters:
+      wal_compression: "on"
+      wal_keep_size: "1GB"
+      # max_wal_size: "4GB"
+      max_slot_wal_keep_size: "10GB"
+  # backup: needs a cleanup cronjob to delete old backups
+  #   volumeSnapshot:
+  #     className: csi-cephfsplugin-snapclass
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: cnpg-nextcloud-b2
+# ---
+# Enable with a cleanup cronjob to delete old backups
+# apiVersion: postgresql.cnpg.io/v1
+# kind: ScheduledBackup
+# metadata:
+#   name: cnpg-volume-snapshot-schedule
+#   namespace: nextcloud
+# spec:
+#   cluster:
+#     name: postgresql-nextcloud
+#   schedule: "0 35 6 * * *"
+#   backupOwnerReference: self
+#   method: volumeSnapshot
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: cnpg-backup-schedule
+  namespace: nextcloud
+spec:
+  schedule: "0 40 6 * * * "
+  backupOwnerReference: self
+  cluster:
+    name: postgresql-nextcloud
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: cnpg-nextcloud-b2
+spec:
+  configuration:
+    destinationPath: s3://k8s-shared-bucket/postgresql-nextcloud
+    endpointURL: https://s3.ca-east-006.backblazeb2.com
+    s3Credentials:
+      accessKeyId:
+        name: b2-creds
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: b2-creds
+        key: ACCESS_SECRET_KEY
+    wal:
+      compression: gzip
+      encryption: AES256
+    data:
+      compression: gzip
+      encryption: AES256
+      jobs: 2
+  retentionPolicy: 30d
+  instanceSidecarConfiguration:
+    env:
+      - name: AWS_REQUEST_CHECKSUM_CALCULATION
+        value: when_required
+      - name: AWS_RESPONSE_CHECKSUM_VALIDATION
+        value: when_required

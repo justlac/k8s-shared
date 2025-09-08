@@ -3,10 +3,12 @@ kind: Application
 metadata:
   name: vaultwarden
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   destination:
+    server: https://cedille.kubernetes.omni.siderolabs.io?cluster=k8s-shared
     namespace: vaultwarden
-    server: https://kubernetes.default.svc
   project: k8s-shared
   sources:
     - repoURL: https://github.com/ClubCedille/k8s-shared.git

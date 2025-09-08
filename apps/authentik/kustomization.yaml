@@ -6,9 +6,10 @@ metadata:
 resources:
   - resources/certificate.yaml
   - resources/httpproxy.yaml
+  - resources/pvc.yaml
 helmCharts:
   - name: authentik
-    version: "2025.2.1"
+    version: "2025.4"
     repo: "https://charts.goauthentik.io"
     releaseName: "authentik"
     namespace: authentik

@@ -2,8 +2,6 @@ apiVersion: projectcontour.io/v1
 kind: HTTPProxy
 metadata:
   name: vaultwarden-httpproxy
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-http
 spec:
   virtualhost:
     fqdn: vaultwarden.etsmtl.club
@@ -13,10 +11,7 @@ spec:
   routes:
     - conditions:
         - prefix: /
-      enableWebsockets: true
       services:
         - name: vaultwarden
           port: 80
-      timeoutPolicy:
-        idle: 600s
-        response: 600s
+      enableWebsockets: true

@@ -13,7 +13,7 @@ image:
   ## @param image.pullPolicy Vaultwarden image pull policy
   ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## @param image.pullSecrets Specify docker-registry secrets
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
   ## Example:
@@ -23,19 +23,20 @@ image:
   pullSecrets: []
   ## @param image.extraSecrets Vaultwarden image extra secrets
   ## Example:
-  ## extraSecrets:
-  ##   - key: SSO_CLIENT_SECRET
-  ##     value: secretStuff
-  ##
   extraSecrets: []
+  #   - key: SSO_CLIENT_SECRET
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: vaultwarden-secret
+  #         key: SSO_CLIENT_SECRET
+  # ##
   ## @param image.extraVars Vaultwarden image extra vars
   ## Example:
-  ## extraVars:
-  ##   - key: SSO_AUTHORITY
-  ##     value: https://bananaguy.com/auth
-  ##
+
   extraVarsCM: ""
-  extraVars: []
+  extraVars:
+    - key: SSO_AUTHORITY
+      value: https://auth.etsmtl.club
 
   extraVolumes: []
   extraVolumeMounts: []
@@ -107,23 +108,21 @@ serviceAccount:
 ## @param podSecurityContext Pod security options
 ##
 podSecurityContext:
-  {}
-  # fsGroup: 1001
-  # supplementalGroups:
-  #   - 1001
+  fsGroup: 1001
+  supplementalGroups:
+    - 1001
 
 ## @param securityContext Default security options to run vault as read only container without privilege escalation
 securityContext:
-  {}
-  # allowPrivilegeEscalation: false
-  # privileged: false
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsGroup: 1001
-  # runAsUser: 1001
-  # capabilities:
-  #   drop:
-  #     - ALL
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 1001
+  runAsUser: 1001
+  capabilities:
+    drop:
+      - ALL
 
 ## @param dnsConfig Pod DNS options
 ## Ref: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config
@@ -215,17 +214,12 @@ startupProbe:
 ## @param resources Resource configurations
 ##
 resources:
-  {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 300m
-  #   memory: 1Gi
-  # requests:
-  #   cpu: 50m
-  #   memory: 256Mi
+  limits:
+    cpu: 300m
+    memory: 1Gi
+  requests:
+    cpu: 50m
+    memory: 256Mi
 
 ## @param strategy Resource configurations
 ##
@@ -249,7 +243,6 @@ podDisruptionBudget:
 ## @section Persistent data configuration
 ##
 
-
 storage:
   ## @param storage.existingVolumeClaim If defined, the values here will be used for the data and
   ## attachments PV's. The custom values for data and attachments will be ignored if
@@ -264,7 +257,7 @@ storage:
     size: "15Gi"
     class: "cephfs"
     path: "/data"
-    keepPvc: false
+    keepPvc: true
     accessMode: "ReadWriteOnce"
 
   ## @param storage.attachments Attachments directory configuration, refer to values.yaml for parameters.
@@ -389,7 +382,7 @@ eventsDayRetain: ""
 ## @param domain Domain name where the application is accessed
 ## Example: https://warden.contoso.com:8443
 ##
-domain: "https://vaultwarden.v34l.com"
+domain: "https://vaultwarden.etsmtl.club"
 
 ## @param sendsAllowed Controls whether users are allowed to create Bitwarden Sends.
 ##
@@ -427,7 +420,7 @@ trashAutoDeleteDays: ""
 ## of any of the restrictions above
 ##
 ## If signupDomains is set, then the value of signupsAllowed is ignored
-signupsAllowed: true
+signupsAllowed: false
 
 ## @param signupsVerify Whether to require account verification for newly-registered users.
 ##
@@ -436,7 +429,7 @@ signupsVerify: "true"
 ## @param signupDomains List of domain names for users allowed to register. For example:
 ## example.com,example.net,example.org.
 ##
-signupDomains: "vaultwarden.v34l.com"
+signupDomains: "vaultwarden.etsmtl.club,auth.etsmtl.club"
 
 ## @param orgEventsEnabled Controls whether event logging is enabled for organizations
 ##
@@ -550,7 +543,7 @@ adminRateLimitSeconds: "300"
 
 ## @param adminRateLimitMaxBurst Allow a burst of requests of up to this size, while maintaining the average indicated by adminRateLimitSeconds.
 ##
-adminRateLimitMaxBurst: "3"
+adminRateLimitMaxBurst: "10"
 
 ## @param timeZone Specify timezone different from the default (UTC).
 ## For example: "Europe/Berlin"

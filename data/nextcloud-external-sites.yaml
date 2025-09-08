@@ -1,0 +1,9 @@
+---
+- id: 1
+  name: planka
+  url: https://planka.etsmtl.club
+  lang: ''
+  type: link
+  device: ''
+  icon_url: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/planka-dark.png"
+  redirect: false
