@@ -8,10 +8,17 @@ spec:
     namespace: vaultwarden
     server: https://kubernetes.default.svc
   project: k8s-shared
-  source:
-    path: apps/vaultwarden
-    repoURL: https://github.com/ClubCedille/k8s-shared.git
-    targetRevision: HEAD
+  sources:
+    - repoURL: https://github.com/ClubCedille/k8s-shared.git
+      path: apps/vaultwarden
+      targetRevision: HEAD
+   - chart: vaultwarden
+      helm:
+        releaseName: vaultwarden
+        valueFiles:
+          - $values/apps/vaultwarden/helm/values.yaml
+      repoURL: https://guerzon.github.io/vaultwarden
+      targetRevision: 0.34.3
   syncPolicy:
     automated:
       prune: true
