@@ -11,9 +11,9 @@ spec:
     namespace: vaultwarden
   project: k8s-shared
   source:
-    - repoURL: https://github.com/ClubCedille/k8s-shared.git
-      path: apps/vaultwarden/prod
-      targetRevision: HEAD
+    repoURL: https://github.com/ClubCedille/k8s-shared.git
+    path: apps/vaultwarden/prod
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
