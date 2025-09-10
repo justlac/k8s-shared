@@ -10,17 +10,10 @@ spec:
     server: https://cedille.kubernetes.omni.siderolabs.io?cluster=k8s-shared
     namespace: vaultwarden
   project: k8s-shared
-  sources:
+  source:
     - repoURL: https://github.com/ClubCedille/k8s-shared.git
-      path: apps/vaultwarden
+      path: apps/vaultwarden/prod
       targetRevision: HEAD
-    - chart: vaultwarden
-      helm:
-        releaseName: vaultwarden
-        valueFiles:
-          - $values/apps/vaultwarden/helm/values.yaml
-      repoURL: https://guerzon.github.io/vaultwarden
-      targetRevision: 0.34.3
   syncPolicy:
     automated:
       prune: true
