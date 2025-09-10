@@ -1,8 +1,7 @@
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
 metadata:
-  name: vaultwarden
-  namespace: vaultwarden
+  name: vaultwarden-httpproxy
 spec:
   virtualhost:
     fqdn: vaultwarden.etsmtl.club
