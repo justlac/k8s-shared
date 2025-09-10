@@ -4,3 +4,5 @@
   quota: 100
 - name: conjure
   quota: 300
+- name: chinook
+  quota: 1000
