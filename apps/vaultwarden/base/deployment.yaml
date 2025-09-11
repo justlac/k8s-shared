@@ -33,6 +33,12 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: vaultwarden-storage
+          env:
+            - name: ADMIN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-tls
+                  key: ADMIN_TOKEN
           readinessProbe:
             httpGet:
               path: /
