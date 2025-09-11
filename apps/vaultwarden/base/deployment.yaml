@@ -14,6 +14,16 @@ spec:
       labels:
         app: vaultwarden
     spec:
+      initContainers:
+        - name: init-permissions
+          image: busybox
+          command: ["/bin/sh", "-c"]
+          args:
+            - chown -R 10001:10001 /data;
+              chmod -R 770 /data;
+          volumeMounts:
+            - mountPath: /data
+              name: vaultwarden-storage
       containers:
         - name: vaultwarden
           image: vaultwarden/server:testing
