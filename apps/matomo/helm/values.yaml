@@ -36,7 +36,7 @@ mariadb:
     imagePullPolicy: Always
 
 matomo:
-  skipInstall: true
+  skipInstall: false
   persistence:
     enabled: true
     imagePullPolicy: Always
