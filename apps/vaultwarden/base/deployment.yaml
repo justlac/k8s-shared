@@ -93,7 +93,7 @@ spec:
                 secretKeyRef:
                   name: vaultwarden-secret
                   key: SSO_SIGNUPS_MATCH_EMAIL
-                  
+
           securityContext:
             runAsUser: 10000
             runAsGroup: 10000
@@ -120,24 +120,7 @@ spec:
               port: 80
             initialDelaySeconds: 5
             periodSeconds: 5
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-              ephemeral-storage: 256Mi
-            limits:
-              cpu: 500m
-              memory: 256Mi
-              ephemeral-storage: 1Gi
-          securityContext:
-            runAsUser: 10001
-            runAsGroup: 10001
-            readOnlyRootFilesystem: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop: [ALL]
-            seccompProfile:
-              type: RuntimeDefault
+
       volumes:
         - name: vaultwarden-storage
           persistentVolumeClaim:
