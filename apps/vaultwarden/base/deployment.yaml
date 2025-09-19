@@ -37,8 +37,63 @@ spec:
             - name: ADMIN_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: vaultwarden-tls
+                  name: vaultwarden-secret
                   key: ADMIN_TOKEN
+
+            - name: SSO_ENABLED
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-secret
+                  key: SSO_ENABLED
+
+            - name: SSO_AUTHORITY
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-secret
+                  key: SSO_AUTHORITY
+
+            - name: SSO_SCOPES
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-secret
+                  key: SSO_SCOPES
+            
+            - name: SSO_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-secret
+                  key: SSO_CLIENT_ID
+
+            - name: SSO_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-secret
+                  key: SSO_SCOPES
+
+            - name: SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-secret
+                  key: SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION
+
+            - name: SSO_CLIENT_CACHE_EXPIRATION
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-secret
+                  key: SSO_CLIENT_CACHE_EXPIRATION
+
+            - name: SSO_ONLY
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-secret
+                  key: SSO_ONLY
+
+            - name: SSO_SIGNUPS_MATCH_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-secret
+                  key: SSO_SIGNUPS_MATCH_EMAIL
+
           readinessProbe:
             httpGet:
               path: /
