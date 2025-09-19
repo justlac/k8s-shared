@@ -6,5 +6,7 @@
   quota: 300
 - name: chinook
   quota: 1000
+- name: capra
+  quota: 300
 - name: pontacier
   quota: 1000
