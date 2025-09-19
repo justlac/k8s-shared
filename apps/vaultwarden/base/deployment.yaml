@@ -57,7 +57,7 @@ spec:
                 secretKeyRef:
                   name: vaultwarden-secret
                   key: SSO_SCOPES
-            
+
             - name: SSO_CLIENT_ID
               valueFrom:
                 secretKeyRef:
