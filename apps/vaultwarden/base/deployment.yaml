@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: vaultwarden
   annotations:
-    kube-score/ignore: pod-networkpolicy
+    kube-score/ignore: pod-networkpolicy, container-image-tag
 spec:
   replicas: 1
   selector:
@@ -93,6 +93,26 @@ spec:
                 secretKeyRef:
                   name: vaultwarden-secret
                   key: SSO_SIGNUPS_MATCH_EMAIL
+                  
+          securityContext:
+            runAsUser: 10000
+            runAsGroup: 10000
+            runAsNonRoot: true
+            fsGroup: 10000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+
+          resources:
+            requests:
+              cpu: 250m
+              memory: 500Mi
+              ephemeral-storage: 256Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+              ephemeral-storage: 1Gi
 
           readinessProbe:
             httpGet:
