@@ -42,7 +42,10 @@ spec:
                   key: ADMIN_TOKEN
 
             - name: SSO_SCOPES
-              value: "openid email profile offline_access"
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-secret
+                  key: SSO_SCOPES
             - name: SSO_CLIENT_ID
               valueFrom:
                 secretKeyRef:
