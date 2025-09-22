@@ -33,6 +33,7 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: vaultwarden-storage
+          ### https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
           env:
             - name: ADMIN_TOKEN
               valueFrom:
@@ -40,24 +41,8 @@ spec:
                   name: vaultwarden-secret
                   key: ADMIN_TOKEN
 
-            - name: SSO_ENABLED
-              valueFrom:
-                secretKeyRef:
-                  name: vaultwarden-secret
-                  key: SSO_ENABLED
-
-            - name: SSO_AUTHORITY
-              valueFrom:
-                secretKeyRef:
-                  name: vaultwarden-secret
-                  key: SSO_AUTHORITY
-
             - name: SSO_SCOPES
-              valueFrom:
-                secretKeyRef:
-                  name: vaultwarden-secret
-                  key: SSO_SCOPES
-
+              value: "openid email profile offline_access"
             - name: SSO_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -70,29 +55,22 @@ spec:
                   name: vaultwarden-secret
                   key: SSO_CLIENT_SECRET
 
+            - name: SSO_ENABLED
+              value: true
+            - name: SSO_AUTHORITY
+              value: https://auth.etsmtl.club/application/o/vaultwarden/
             - name: SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION
-              valueFrom:
-                secretKeyRef:
-                  name: vaultwarden-secret
-                  key: SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION
-
+              value: false
             - name: SSO_CLIENT_CACHE_EXPIRATION
-              valueFrom:
-                secretKeyRef:
-                  name: vaultwarden-secret
-                  key: SSO_CLIENT_CACHE_EXPIRATION
-
+              value: 0
             - name: SSO_ONLY
-              valueFrom:
-                secretKeyRef:
-                  name: vaultwarden-secret
-                  key: SSO_ONLY
-
+              value: true
             - name: SSO_SIGNUPS_MATCH_EMAIL
-              valueFrom:
-                secretKeyRef:
-                  name: vaultwarden-secret
-                  key: SSO_SIGNUPS_MATCH_EMAIL
+              value: true
+            - name: SSO_AUTH_ONLY_NOT_SESSION
+              value: true
+            - name: DOMAIN
+              value: https://vaultwarden.etsmtl.club
 
           securityContext:
             runAsUser: 10001
