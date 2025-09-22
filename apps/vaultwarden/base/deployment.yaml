@@ -68,7 +68,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: vaultwarden-secret
-                  key: SSO_SCOPES
+                  key: SSO_CLIENT_SECRET
 
             - name: SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION
               valueFrom:
@@ -95,10 +95,9 @@ spec:
                   key: SSO_SIGNUPS_MATCH_EMAIL
 
           securityContext:
-            runAsUser: 10000
-            runAsGroup: 10000
+            runAsUser: 10001
+            runAsGroup: 10001
             runAsNonRoot: true
-            fsGroup: 10000
             allowPrivilegeEscalation: false
             capabilities:
               drop:
