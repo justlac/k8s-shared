@@ -65,6 +65,11 @@ nextcloud:
   #   readOnlyRootFilesystem: false
 
   configs:
+    db.config.php: |-
+      <?php
+      $CONFIG = array (
+         'dbpersistent' => true
+         );
     users.config.php: |-
       <?php
       $CONFIG = array (
