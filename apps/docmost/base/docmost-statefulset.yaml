@@ -47,7 +47,7 @@ spec:
             runAsGroup: 10000
             fsGroup: 10000
             runAsNonRoot: true
-            readOnlyRootFilesystem: fal
+            readOnlyRootFilesystem: false
           readinessProbe:
             httpGet:
               path: /
