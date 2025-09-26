@@ -31,14 +31,59 @@ def find_fqdn_in_yaml(file_path):
 
 def extract_fqdn_recursive(obj):
     """
-    Recherche récursivement les clés 'fqdn' dans un objet YAML
+    Recherche récursivement les clés 'fqdn', 'host', 'hosts', et 'domain' dans un objet YAML
     """
     fqdns = []
 
     if isinstance(obj, dict):
         for key, value in obj.items():
-            if key == "fqdn" and isinstance(value, str):
-                fqdns.append(value)
+            # Chercher les clés qui contiennent des FQDNs
+            if key in ["fqdn", "domain"] and isinstance(value, str):
+                # Nettoyer les valeurs qui peuvent contenir des préfixes/suffixes
+                clean_value = (
+                    value.strip('"')
+                    .replace("https://", "")
+                    .replace("http://", "")
+                    .split("/")[0]
+                    .split(":")[0]
+                )
+                if clean_value.endswith(".club"):
+                    fqdns.append(clean_value)
+            elif key == "host" and isinstance(value, str):
+                # Nettoyer les valeurs host
+                clean_value = (
+                    value.strip('"')
+                    .replace("https://", "")
+                    .replace("http://", "")
+                    .split("/")[0]
+                    .split(":")[0]
+                )
+                if clean_value.endswith(".club"):
+                    fqdns.append(clean_value)
+            elif key == "hosts" and isinstance(value, list):
+                # Traiter les listes de hosts
+                for host_item in value:
+                    if isinstance(host_item, str):
+                        clean_value = (
+                            host_item.strip('"')
+                            .replace("https://", "")
+                            .replace("http://", "")
+                            .split("/")[0]
+                            .split(":")[0]
+                        )
+                        if clean_value.endswith(".club"):
+                            fqdns.append(clean_value)
+                    elif isinstance(host_item, dict) and "host" in host_item:
+                        clean_value = (
+                            host_item["host"]
+                            .strip('"')
+                            .replace("https://", "")
+                            .replace("http://", "")
+                            .split("/")[0]
+                            .split(":")[0]
+                        )
+                        if clean_value.endswith(".club"):
+                            fqdns.append(clean_value)
             else:
                 fqdns.extend(extract_fqdn_recursive(value))
     elif isinstance(obj, list):
@@ -55,6 +100,8 @@ def create_simple_endpoint(fqdn, app_name, source_file):
     # Créer un nom unique basé sur le FQDN complet
     if "staging" in fqdn:
         endpoint_name = f"{app_name}-staging"
+    elif "prod.cedille.club" in fqdn:
+        endpoint_name = f"{app_name}-prod"
     else:
         # Utiliser le premier sous-domaine comme identifiant
         subdomain = fqdn.split(".")[0]
