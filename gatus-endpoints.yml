@@ -1,0 +1,56 @@
+'# Configuration gÃ©nÃ©rÃ©e automatiquement': GÃ©nÃ©rÃ© le 2025-09-26T14:32:13.889389
+endpoints:
+- name: authentik-auth
+  url: https://auth.etsmtl.club
+  interval: 5m
+  conditions:
+  - '[STATUS] == 200'
+  - '[RESPONSE_TIME] < 3000'
+- name: docmost-wiki
+  url: https://wiki.etsmtl.club
+  interval: 5m
+  conditions:
+  - '[STATUS] == 200'
+  - '[RESPONSE_TIME] < 3000'
+- name: docmost-staging
+  url: https://wiki.staging.etsmtl.club
+  interval: 5m
+  conditions:
+  - '[STATUS] == 200'
+  - '[RESPONSE_TIME] < 3000'
+- name: kubero-ui-kubero
+  url: https://kubero.etsmtl.club
+  interval: 5m
+  conditions:
+  - '[STATUS] == 200'
+  - '[RESPONSE_TIME] < 3000'
+- name: matomo-matomo
+  url: https://matomo.etsmtl.club
+  interval: 5m
+  conditions:
+  - '[STATUS] == 200'
+  - '[RESPONSE_TIME] < 3000'
+- name: nextcloud-collabora-nextcloud
+  url: https://collabora-nextcloud.etsmtl.club
+  interval: 5m
+  conditions:
+  - '[STATUS] == 200'
+  - '[RESPONSE_TIME] < 3000'
+- name: nextcloud-nextcloud
+  url: https://nextcloud.etsmtl.club
+  interval: 5m
+  conditions:
+  - '[STATUS] == 200'
+  - '[RESPONSE_TIME] < 3000'
+- name: planka-planka
+  url: https://planka.etsmtl.club
+  interval: 5m
+  conditions:
+  - '[STATUS] == 200'
+  - '[RESPONSE_TIME] < 3000'
+- name: vaultwarden-vaultwarden
+  url: https://vaultwarden.etsmtl.club
+  interval: 5m
+  conditions:
+  - '[STATUS] == 200'
+  - '[RESPONSE_TIME] < 3000'
